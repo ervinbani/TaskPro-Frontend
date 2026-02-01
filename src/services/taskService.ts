@@ -1,5 +1,5 @@
-import api from './api';
-import { Task, CreateTaskDto, UpdateTaskDto } from '../types/task';
+import api from "./api";
+import { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
 
 // Get all tasks for a project
 export const getProjectTasks = async (projectId: string): Promise<Task[]> => {
@@ -8,13 +8,22 @@ export const getProjectTasks = async (projectId: string): Promise<Task[]> => {
 };
 
 // Create new task in a project
-export const createTask = async (projectId: string, data: CreateTaskDto): Promise<Task> => {
-  const response = await api.post<Task>(`/tasks/projects/${projectId}/tasks`, data);
+export const createTask = async (
+  projectId: string,
+  data: CreateTaskDto,
+): Promise<Task> => {
+  const response = await api.post<Task>(
+    `/tasks/projects/${projectId}/tasks`,
+    data,
+  );
   return response.data;
 };
 
 // Update task
-export const updateTask = async (taskId: string, data: UpdateTaskDto): Promise<Task> => {
+export const updateTask = async (
+  taskId: string,
+  data: UpdateTaskDto,
+): Promise<Task> => {
   const response = await api.put<Task>(`/tasks/${taskId}`, data);
   return response.data;
 };

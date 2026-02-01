@@ -1,9 +1,9 @@
-import api from './api';
-import { Project, CreateProjectDto, UpdateProjectDto } from '../types/project';
+import api from "./api";
+import { Project, CreateProjectDto, UpdateProjectDto } from "../types/project";
 
 // Get all user's projects
 export const getAllProjects = async (): Promise<Project[]> => {
-  const response = await api.get<Project[]>('/projects');
+  const response = await api.get<Project[]>("/projects");
   return response.data;
 };
 
@@ -14,13 +14,18 @@ export const getProject = async (id: string): Promise<Project> => {
 };
 
 // Create new project
-export const createProject = async (data: CreateProjectDto): Promise<Project> => {
-  const response = await api.post<Project>('/projects', data);
+export const createProject = async (
+  data: CreateProjectDto,
+): Promise<Project> => {
+  const response = await api.post<Project>("/projects", data);
   return response.data;
 };
 
 // Update project
-export const updateProject = async (id: string, data: UpdateProjectDto): Promise<Project> => {
+export const updateProject = async (
+  id: string,
+  data: UpdateProjectDto,
+): Promise<Project> => {
   const response = await api.put<Project>(`/projects/${id}`, data);
   return response.data;
 };
