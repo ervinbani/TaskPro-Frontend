@@ -11,6 +11,7 @@ import {
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
+import ProjectEditModal from "../../components/projects/ProjectEditModal";
 import styles from "./ProjectDetail.module.css";
 
 const ProjectDetail = () => {
@@ -23,6 +24,7 @@ const ProjectDetail = () => {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>("All Tasks");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showEditProjectModal, setShowEditProjectModal] = useState(false);
 
   const [taskForm, setTaskForm] = useState<CreateTaskDto>({
     title: "",
@@ -131,7 +133,11 @@ const ProjectDetail = () => {
       category: undefined,
       progress: 0,
     });
-    setEditingTask(null);
+    
+
+  const handleUpdateProject = (updatedProject: Project) => {
+    setProject(updatedProject);
+  };setEditingTask(null);
   };
 
   const getFilteredTasks = () => {
@@ -190,6 +196,15 @@ const ProjectDetail = () => {
             </svg>
           </button>
           <button className={styles.iconBtn}>
+          <button 
+            className={styles.editProjectBtn}
+            onClick={() => setShowEditProjectModal(true)}
+            title="Edit project"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+            </svg>
+          </button>
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
             </svg>
@@ -211,6 +226,15 @@ const ProjectDetail = () => {
               : "Recently"}
           </p>
           <h1 className={styles.projectTitle}>{project.name}</h1>
+          {project.tags && project.tags.length > 0 && (
+            <div className={styles.projectTags}>
+              {project.tags.map((tag, index) => (
+                <span key={index} className={styles.projectTag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -384,6 +408,15 @@ const ProjectDetail = () => {
             </form>
           </div>
         </div>
+      )}
+
+      {/* Project Edit Modal */}
+      {showEditProjectModal && project && (
+        <ProjectEditModal
+          project={project}
+          onClose={() => setShowEditProjectModal(false)}
+          onUpdate={handleUpdateProject}
+        />
       )}
     </div>
   );

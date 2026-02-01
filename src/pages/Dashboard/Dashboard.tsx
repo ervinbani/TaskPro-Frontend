@@ -13,7 +13,9 @@ const Dashboard = () => {
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
+    tags: [] as string[],
   });
+  const [tagInput, setTagInput] = useState("");
 
   // Carica i progetti
   useEffect(() => {
@@ -45,11 +47,30 @@ const Dashboard = () => {
       const created = await projectService.createProject(newProject);
       setProjects([...projects, created]);
       setShowModal(false);
-      setNewProject({ name: "", description: "" });
+      setNewProject({ name: "", description: "", tags: [] });
+      setTagInput("");
       toast.success("Project created successfully!");
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to create project");
     }
+  };
+
+  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const tag = tagInput.trim();
+      if (tag && !newProject.tags.includes(tag)) {
+        setNewProject({ ...newProject, tags: [...newProject.tags, tag] });
+        setTagInput("");
+      }
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setNewProject({
+      ...newProject,
+      tags: newProject.tags.filter((tag) => tag !== tagToRemove),
+    });
   };
 
   return (
@@ -104,6 +125,35 @@ const Dashboard = () => {
                   placeholder="Enter project description"
                   rows={4}
                 />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="tags">
+                  Tags (Press Enter to add)
+                </label>
+                <input
+                  type="text"
+                  id="tags"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={handleAddTag}
+                  placeholder="Add a tag and press Enter"
+                />
+                {newProject.tags.length > 0 && (
+                  <div className={styles.tagsList}>
+                    {newProject.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>
+                        {tag}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTag(tag)}
+                          className={styles.tagRemove}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className={styles.modalActions}>
                 <button

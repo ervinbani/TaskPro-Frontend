@@ -80,6 +80,15 @@ const ProjectList = () => {
               <p className={styles.description}>
                 {project.description || "No description"}
               </p>
+              {project.tags && project.tags.length > 0 && (
+                <div className={styles.tags}>
+                  {project.tags.map((tag, index) => (
+                    <span key={index} className={styles.tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
               <div className={styles.cardFooter}>
                 <button
                   onClick={() => navigate(`/projects/${project._id}`)}
