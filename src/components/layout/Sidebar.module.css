@@ -9,6 +9,43 @@
   left: 0;
   top: 0;
   overflow-y: auto;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.closeBtn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: block;
+  }
 }
 
 .logo {
@@ -103,29 +140,31 @@
   opacity: 1;
 }
 
-.addBtn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  background: #e8e9ed;
-  color: #6b7280;
+.addProjectBtn {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 1rem;
+  background: white;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
-  flex-shrink: 0;
+  width: calc(100% - 2rem);
 }
 
-.addBtn svg {
-  width: 16px;
-  height: 16px;
+.addProjectBtn svg {
+  width: 18px;
+  height: 18px;
   fill: currentColor;
 }
 
-.addBtn:hover {
-  background: #d1d5db;
+.addProjectBtn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
   color: #374151;
 }
 

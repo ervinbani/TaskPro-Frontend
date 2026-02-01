@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Project } from "../../types/project";
-import {
-  Task,
-  TaskStatus,
-  CreateTaskDto,
-  TaskCategory,
-} from "../../types/task";
+import { Task, TaskStatus, CreateTaskDto } from "../../types/task";
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
@@ -30,7 +25,6 @@ const ProjectDetail = () => {
     title: "",
     description: "",
     status: "To Do",
-    category: undefined,
     tags: [],
     progress: 0,
   });
@@ -133,7 +127,6 @@ const ProjectDetail = () => {
       title: "",
       description: "",
       status: "To Do",
-      category: undefined,
       tags: [],
       progress: 0,
     });
@@ -162,10 +155,9 @@ const ProjectDetail = () => {
       if (isProjectTag) {
         // Filter by tag
         return task.tags?.includes(filterCategory) && matchesSearch;
-      } else {
-        // Filter by category
-        return task.category === filterCategory && matchesSearch;
       }
+
+      return matchesSearch;
     });
   };
 
@@ -379,27 +371,6 @@ const ProjectDetail = () => {
                     <option value="To Do">To Do</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Done">Done</option>
-                  </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="category">Category</label>
-                  <select
-                    id="category"
-                    value={taskForm.category || ""}
-                    onChange={(e) =>
-                      setTaskForm({
-                        ...taskForm,
-                        category: e.target.value as TaskCategory,
-                      })
-                    }
-                  >
-                    <option value="">None</option>
-                    <option value="Testing">Testing</option>
-                    <option value="Development">Development</option>
-                    <option value="Design">Design</option>
-                    <option value="Planning">Planning</option>
-                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>

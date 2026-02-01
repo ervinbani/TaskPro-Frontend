@@ -7,9 +7,11 @@ import styles from "./Sidebar.module.css";
 interface SidebarProps {
   projects: Project[];
   onCreateProject: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-const Sidebar = ({ projects, onCreateProject }: SidebarProps) => {
+const Sidebar = ({ projects, onCreateProject, isOpen = false, onClose }: SidebarProps) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -19,7 +21,16 @@ const Sidebar = ({ projects, onCreateProject }: SidebarProps) => {
   };
 
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
+      {/* Close button for mobile */}
+      <button 
+        className={styles.closeBtn}
+        onClick={onClose}
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -45,12 +56,14 @@ const Sidebar = ({ projects, onCreateProject }: SidebarProps) => {
               </svg>
               <span>Projects</span>
             </div>
-            <button onClick={onCreateProject} className={styles.addBtn}>
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-              </svg>
-            </button>
           </div>
+
+          <button onClick={onCreateProject} className={styles.addProjectBtn}>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+            Add Project
+          </button>
 
           <div className={styles.projectList}>
             {projects.map((project) => (
@@ -82,19 +95,6 @@ const Sidebar = ({ projects, onCreateProject }: SidebarProps) => {
           <span>Messages</span>
         </NavLink>
       </nav>
-
-      <div className={styles.premium}>
-        <p className={styles.premiumTitle}>Need more productivity?</p>
-        <p className={styles.premiumText}>
-          Add more projects & tasks and enjoy other premium features of TASKER
-        </p>
-        <button className={styles.premiumBtn}>
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-          GO PREMIUM
-        </button>
-      </div>
 
       <button onClick={handleLogout} className={styles.logoutBtn}>
         Logout

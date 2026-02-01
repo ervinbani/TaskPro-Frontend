@@ -1,17 +1,10 @@
 export type TaskStatus = "To Do" | "In Progress" | "Done";
-export type TaskCategory =
-  | "Testing"
-  | "Development"
-  | "Design"
-  | "Planning"
-  | "Other";
 
 export interface Task {
   _id: string;
   title: string;
   description?: string;
   status: TaskStatus;
-  category?: TaskCategory;
   tags?: string[]; // Tags scelti dai tags del progetto
   progress?: number; // 0-100
   project: string; // ID del progetto
@@ -23,7 +16,6 @@ export interface CreateTaskDto {
   title: string;
   description?: string;
   status?: TaskStatus;
-  category?: TaskCategory;
   tags?: string[];
   progress?: number;
 }

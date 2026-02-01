@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
@@ -75,7 +76,31 @@ const Dashboard = () => {
 
   return (
     <div className={styles.layout}>
-      <Sidebar projects={projects} onCreateProject={() => setShowModal(true)} />
+      {/* Mobile Hamburger Button */}
+      <button 
+        className={styles.hamburger}
+        onClick={() => setSidebarOpen(true)}
+        aria-label="Open menu"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+        </svg>
+      </button>
+
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div 
+          className={styles.overlay}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar 
+        projects={projects} 
+        onCreateProject={() => setShowModal(true)}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       <main className={styles.content}>
         <Outlet />
