@@ -258,19 +258,14 @@ const ProjectDetail = () => {
 
       {/* Category filters */}
       <div className={styles.filters}>
-        {["All Tasks", "Development", "Testing", "Planning", "Design"].map(
-          (category) => (
-            <button
-              key={category}
-              onClick={() => setFilterCategory(category)}
-              className={`${styles.filterBtn} ${
-                filterCategory === category ? styles.activeFilter : ""
-              }`}
-            >
-              {category}
-            </button>
-          ),
-        )}{" "}
+        <button
+          onClick={() => setFilterCategory("All Tasks")}
+          className={`${styles.filterBtn} ${
+            filterCategory === "All Tasks" ? styles.activeFilter : ""
+          }`}
+        >
+          All Tasks
+        </button>
         {project.tags && project.tags.length > 0 && (
           <>
             <div className={styles.filterDivider}></div>
