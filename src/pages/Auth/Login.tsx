@@ -1,12 +1,12 @@
-import { useState, FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-toastify';
-import styles from './Login.module.css';
+import { useState, FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+import styles from "./Login.module.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -16,12 +16,12 @@ const Login = () => {
 
     // Validazione client-side
     if (!email || !password) {
-      toast.error('Please fill in all fields');
+      toast.error("Please fill in all fields");
       return;
     }
 
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      toast.error("Password must be at least 6 characters");
       return;
     }
 
@@ -29,10 +29,11 @@ const Login = () => {
 
     try {
       await login({ email, password });
-      toast.success('Login successful!');
-      navigate('/dashboard');
+      toast.success("Login successful!");
+      navigate("/dashboard");
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
+      const errorMessage =
+        error.response?.data?.message || "Login failed. Please try again.";
       toast.error(errorMessage);
     } finally {
       setLoading(false);
@@ -77,12 +78,12 @@ const Login = () => {
           </div>
 
           <button type="submit" className={styles.button} disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <Link to="/register" className={styles.link}>
             Register here
           </Link>

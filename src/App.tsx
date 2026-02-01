@@ -1,11 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ProtectedRoute from './components/common/ProtectedRoute';
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import "./App.css";
 
 function App() {
   return (
@@ -21,7 +26,7 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '40px', textAlign: 'center' }}>
+                <div style={{ padding: "40px", textAlign: "center" }}>
                   <h1>Dashboard (Coming Soon)</h1>
                   <p>Projects will be displayed here</p>
                 </div>
