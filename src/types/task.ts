@@ -12,6 +12,7 @@ export interface Task {
   description?: string;
   status: TaskStatus;
   category?: TaskCategory;
+  tags?: string[]; // Tags scelti dai tags del progetto
   progress?: number; // 0-100
   project: string; // ID del progetto
   createdAt?: string;
@@ -23,6 +24,7 @@ export interface CreateTaskDto {
   description?: string;
   status?: TaskStatus;
   category?: TaskCategory;
+  tags?: string[];
   progress?: number;
 }
 
@@ -31,5 +33,6 @@ export interface UpdateTaskDto {
   description?: string;
   status?: TaskStatus;
   category?: TaskCategory;
+  tags?: string[];
   progress?: number;
 }

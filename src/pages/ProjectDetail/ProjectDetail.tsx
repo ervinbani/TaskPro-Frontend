@@ -31,6 +31,7 @@ const ProjectDetail = () => {
     description: "",
     status: "To Do",
     category: undefined,
+    tags: [],
     progress: 0,
   });
 
@@ -67,6 +68,7 @@ const ProjectDetail = () => {
       description: "",
       status,
       category: undefined,
+      tags: [],
       progress: 0,
     });
     setShowModal(true);
@@ -79,6 +81,7 @@ const ProjectDetail = () => {
       description: task.description || "",
       status: task.status,
       category: task.category,
+      tags: task.tags || [],
       progress: task.progress || 0,
     });
     setShowModal(true);
@@ -131,23 +134,30 @@ const ProjectDetail = () => {
       description: "",
       status: "To Do",
       category: undefined,
+      tags: [],
       progress: 0,
     });
-
-    const handleUpdateProject = (updatedProject: Project) => {
-      setProject(updatedProject);
-    };
     setEditingTask(null);
+  };
+
+  const handleUpdateProject = (updatedProject: Project) => {
+    setProject(updatedProject);
   };
 
   const getFilteredTasks = () => {
     return tasks.filter((task) => {
       const matchesCategory =
         filterCategory === "All Tasks" || task.category === filterCategory;
+      
+      // Se il filtro è un tag del progetto, filtra per tag
+      const isProjectTag = project?.tags?.includes(filterCategory);
+      const matchesTag = !isProjectTag || task.tags?.includes(filterCategory);
+      
       const matchesSearch = task.title
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      
+      return matchesCategory && matchesTag && matchesSearch;
     });
   };
 
@@ -196,17 +206,17 @@ const ProjectDetail = () => {
             </svg>
           </button>
           <button className={styles.iconBtn}>
-            <button
-              className={styles.editProjectBtn}
-              onClick={() => setShowEditProjectModal(true)}
-              title="Edit project"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-              </svg>
-            </button>
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+            </svg>
+          </button>
+          <button
+            className={styles.editProjectBtn}
+            onClick={() => setShowEditProjectModal(true)}
+            title="Edit project"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
             </svg>
           </button>
         </div>
@@ -252,8 +262,22 @@ const ProjectDetail = () => {
               {category}
             </button>
           ),
-        )}
-      </div>
+        )}        {project.tags && project.tags.length > 0 && (
+          <>
+            <div className={styles.filterDivider}></div>
+            {project.tags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setFilterCategory(tag)}
+                className={`${styles.filterBtn} ${styles.tagFilter} ${
+                  filterCategory === tag ? styles.activeTagFilter : ""
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </>
+        )}      </div>
 
       {/* Kanban Board */}
       <div className={styles.board}>
@@ -392,6 +416,41 @@ const ProjectDetail = () => {
                   }
                 />
               </div>
+
+              {project.tags && project.tags.length > 0 && (
+                <div className={styles.formGroup}>
+                  <label>Tags</label>
+                  <div className={styles.tagsSelector}>
+                    {project.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => {
+                          const currentTags = taskForm.tags || [];
+                          if (currentTags.includes(tag)) {
+                            setTaskForm({
+                              ...taskForm,
+                              tags: currentTags.filter((t) => t !== tag),
+                            });
+                          } else {
+                            setTaskForm({
+                              ...taskForm,
+                              tags: [...currentTags, tag],
+                            });
+                          }
+                        }}
+                        className={`${styles.tagSelectorBtn} ${
+                          taskForm.tags?.includes(tag)
+                            ? styles.tagSelectorBtnActive
+                            : ""
+                        }`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className={styles.modalActions}>
                 <button

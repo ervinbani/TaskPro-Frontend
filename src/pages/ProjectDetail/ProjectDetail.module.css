@@ -170,6 +170,30 @@
   color: #1a1a1a;
 }
 
+.filterDivider {
+  width: 1px;
+  height: 24px;
+  background: #d1d5db;
+  margin: 0 0.25rem;
+}
+
+.tagFilter {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.tagFilter:hover {
+  background: #bfdbfe;
+  border-color: #93c5fd;
+}
+
+.tagFilter.activeTagFilter {
+  background: #3b82f6;
+  border-color: #2563eb;
+  color: white;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -355,4 +379,37 @@
 
 .submitBtn:hover {
   background: #374151;
+}
+
+.tagsSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tagSelectorBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  color: #6b7280;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tagSelectorBtn:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.tagSelectorBtnActive {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.tagSelectorBtnActive:hover {
+  background: #2563eb;
+  border-color: #2563eb;
 }

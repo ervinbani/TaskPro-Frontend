@@ -45,6 +45,16 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
         <p className={styles.description}>{task.description}</p>
       )}
 
+      {task.tags && task.tags.length > 0 && (
+        <div className={styles.tags}>
+          {task.tags.map((tag, index) => (
+            <span key={index} className={styles.tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       {task.progress !== undefined && (
         <div className={styles.progressSection}>
           <div className={styles.progressBar}>
