@@ -11,6 +11,16 @@ export interface AuthResponse {
   user: User;
 }
 
+// Risposta effettiva dal backend (dati user direttamente con token)
+export interface BackendAuthResponse {
+  _id: string;
+  username: string;
+  email: string;
+  token: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface LoginCredentials {
   email: string;
   password: string;

@@ -16,12 +16,16 @@ export const removeToken = (): void => {
 // User management
 export const getUser = (): User | null => {
   const userStr = localStorage.getItem("user");
-  if (!userStr) return null;
+  if (!userStr || userStr === "undefined" || userStr === "null") {
+    localStorage.removeItem("user");
+    return null;
+  }
 
   try {
     return JSON.parse(userStr) as User;
   } catch (error) {
     console.error("Error parsing user from localStorage:", error);
+    localStorage.removeItem("user");
     return null;
   }
 };

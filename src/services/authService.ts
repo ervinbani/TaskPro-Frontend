@@ -1,6 +1,7 @@
 import api from "./api";
 import {
   AuthResponse,
+  BackendAuthResponse,
   LoginCredentials,
   RegisterCredentials,
   User,
@@ -11,26 +12,64 @@ import { setToken, setUser, getUser, clearAuth } from "../utils/storage";
 export const register = async (
   credentials: RegisterCredentials,
 ): Promise<AuthResponse> => {
-  const response = await api.post<AuthResponse>("/user/register", credentials);
+  const response = await api.post<BackendAuthResponse>(
+    "/user/register",
+    credentials,
+  );
 
-  // Salva token e user in localStorage
+  // Valida la risposta
+  if (!response.data.token || !response.data._id || !response.data.email) {
+    throw new Error("Invalid response from server");
+  }
+
+  // Trasforma la risposta del backend nel formato atteso
+  const user: User = {
+    _id: response.data._id,
+    username: response.data.username,
+    email: response.data.email,
+    createdAt: response.data.createdAt,
+    updatedAt: response.data.updatedAt,
+  };
+
   setToken(response.data.token);
-  setUser(response.data.user);
+  setUser(user);
 
-  return response.data;
+  return {
+    token: response.data.token,
+    user,
+  };
 };
 
 // Login user
 export const login = async (
   credentials: LoginCredentials,
 ): Promise<AuthResponse> => {
-  const response = await api.post<AuthResponse>("/user/login", credentials);
+  const response = await api.post<BackendAuthResponse>(
+    "/user/login",
+    credentials,
+  );
 
-  // Salva token e user in localStorage
+  // Valida la risposta
+  if (!response.data.token || !response.data._id || !response.data.email) {
+    throw new Error("Invalid response from server");
+  }
+
+  // Trasforma la risposta del backend nel formato atteso
+  const user: User = {
+    _id: response.data._id,
+    username: response.data.username,
+    email: response.data.email,
+    createdAt: response.data.createdAt,
+    updatedAt: response.data.updatedAt,
+  };
+
   setToken(response.data.token);
-  setUser(response.data.user);
+  setUser(user);
 
-  return response.data;
+  return {
+    token: response.data.token,
+    user,
+  };
 };
 
 // Logout user
