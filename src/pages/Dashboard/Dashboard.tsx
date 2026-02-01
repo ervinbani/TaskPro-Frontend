@@ -127,9 +127,7 @@ const Dashboard = () => {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="tags">
-                  Tags (Press Enter to add)
-                </label>
+                <label htmlFor="tags">Tags (Press Enter to add)</label>
                 <input
                   type="text"
                   id="tags"
