@@ -77,7 +77,7 @@ const Dashboard = () => {
   return (
     <div className={styles.layout}>
       {/* Mobile Hamburger Button */}
-      <button 
+      <button
         className={styles.hamburger}
         onClick={() => setSidebarOpen(true)}
         aria-label="Open menu"
@@ -89,14 +89,11 @@ const Dashboard = () => {
 
       {/* Overlay for mobile */}
       {sidebarOpen && (
-        <div 
-          className={styles.overlay}
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
       )}
 
-      <Sidebar 
-        projects={projects} 
+      <Sidebar
+        projects={projects}
         onCreateProject={() => setShowModal(true)}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

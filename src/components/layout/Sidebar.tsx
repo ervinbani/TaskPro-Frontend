@@ -11,7 +11,12 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const Sidebar = ({ projects, onCreateProject, isOpen = false, onClose }: SidebarProps) => {
+const Sidebar = ({
+  projects,
+  onCreateProject,
+  isOpen = false,
+  onClose,
+}: SidebarProps) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -21,9 +26,9 @@ const Sidebar = ({ projects, onCreateProject, isOpen = false, onClose }: Sidebar
   };
 
   return (
-    <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ""}`}>
       {/* Close button for mobile */}
-      <button 
+      <button
         className={styles.closeBtn}
         onClick={onClose}
         aria-label="Close menu"
