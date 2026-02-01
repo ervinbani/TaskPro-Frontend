@@ -146,18 +146,26 @@ const ProjectDetail = () => {
 
   const getFilteredTasks = () => {
     return tasks.filter((task) => {
-      const matchesCategory =
-        filterCategory === "All Tasks" || task.category === filterCategory;
-      
-      // Se il filtro è un tag del progetto, filtra per tag
-      const isProjectTag = project?.tags?.includes(filterCategory);
-      const matchesTag = !isProjectTag || task.tags?.includes(filterCategory);
-      
+      // Check if search matches
       const matchesSearch = task.title
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
-      
-      return matchesCategory && matchesTag && matchesSearch;
+
+      // If "All Tasks" is selected, show all
+      if (filterCategory === "All Tasks") {
+        return matchesSearch;
+      }
+
+      // Check if the filter is a project tag
+      const isProjectTag = project?.tags?.includes(filterCategory);
+
+      if (isProjectTag) {
+        // Filter by tag
+        return task.tags?.includes(filterCategory) && matchesSearch;
+      } else {
+        // Filter by category
+        return task.category === filterCategory && matchesSearch;
+      }
     });
   };
 
@@ -262,7 +270,8 @@ const ProjectDetail = () => {
               {category}
             </button>
           ),
-        )}        {project.tags && project.tags.length > 0 && (
+        )}{" "}
+        {project.tags && project.tags.length > 0 && (
           <>
             <div className={styles.filterDivider}></div>
             {project.tags.map((tag) => (
@@ -277,7 +286,8 @@ const ProjectDetail = () => {
               </button>
             ))}
           </>
-        )}      </div>
+        )}{" "}
+      </div>
 
       {/* Kanban Board */}
       <div className={styles.board}>
