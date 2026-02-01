@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Project } from "../../types/project";
-import { Task, TaskStatus, CreateTaskDto, TaskCategory } from "../../types/task";
+import {
+  Task,
+  TaskStatus,
+  CreateTaskDto,
+  TaskCategory,
+} from "../../types/task";
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
@@ -142,7 +147,9 @@ const ProjectDetail = () => {
 
   const filteredTasks = getFilteredTasks();
   const todoTasks = filteredTasks.filter((t) => t.status === "To Do");
-  const inProgressTasks = filteredTasks.filter((t) => t.status === "In Progress");
+  const inProgressTasks = filteredTasks.filter(
+    (t) => t.status === "In Progress",
+  );
   const doneTasks = filteredTasks.filter((t) => t.status === "Done");
 
   if (loading) {
@@ -220,7 +227,7 @@ const ProjectDetail = () => {
             >
               {category}
             </button>
-          )
+          ),
         )}
       </div>
 
@@ -261,7 +268,10 @@ const ProjectDetail = () => {
 
       {/* Task Modal */}
       {showModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowModal(false)}
+        >
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>{editingTask ? "Edit Task" : "Create New Task"}</h2>

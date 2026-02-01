@@ -55,18 +55,18 @@ const Dashboard = () => {
   return (
     <div className={styles.layout}>
       <Sidebar projects={projects} onCreateProject={() => setShowModal(true)} />
-      
+
       <main className={styles.content}>
         <Outlet />
       </main>
 
       {/* Modal for creating project */}
       {showModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
-          <div
-            className={styles.modal}
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowModal(false)}
+        >
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>Create New Project</h2>
               <button

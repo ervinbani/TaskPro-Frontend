@@ -10,8 +10,14 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <h1>Welcome to TaskPro{user ? `, ${user.username}` : ""}!</h1>
-        <p>Manage your projects and tasks efficiently with our Kanban board system.</p>
-        <button onClick={() => navigate("/dashboard/projects")} className={styles.btn}>
+        <p>
+          Manage your projects and tasks efficiently with our Kanban board
+          system.
+        </p>
+        <button
+          onClick={() => navigate("/dashboard/projects")}
+          className={styles.btn}
+        >
           View All Projects
         </button>
       </div>

@@ -58,7 +58,10 @@ const ProjectList = () => {
 
       {projects.length === 0 ? (
         <div className={styles.empty}>
-          <p>No projects yet. Create your first project using the + button in the sidebar!</p>
+          <p>
+            No projects yet. Create your first project using the + button in the
+            sidebar!
+          </p>
         </div>
       ) : (
         <div className={styles.projectGrid}>
