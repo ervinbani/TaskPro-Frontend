@@ -1,14 +1,11 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
   padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .content {
-  text-align: center;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .content h1 {
@@ -24,19 +21,65 @@
   line-height: 1.6;
 }
 
-.btn {
-  padding: 1rem 2rem;
-  background: #1a1a1a;
-  color: white;
-  border: none;
-  border-radius: 8px;
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.noProjects {
+  text-align: center;
+  padding: 3rem;
+  color: #9ca3af;
   font-size: 1rem;
-  font-weight: 600;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.projectCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.btn:hover {
-  background: #374151;
+.projectCard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
+}
+
+.projectCard h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+}
+
+.projectCard p {
+  margin: 0 0 1rem 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
