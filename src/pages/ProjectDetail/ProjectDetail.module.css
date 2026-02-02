@@ -47,6 +47,7 @@
   flex: 1;
   font-size: 0.9rem;
   color: #1a1a1a;
+  background: transparent;
 }
 
 .searchBar input::placeholder {
@@ -75,6 +76,7 @@
   width: 20px;
   height: 20px;
   color: #6b7280;
+  fill: currentColor;
 }
 
 .iconBtn:hover {
@@ -98,6 +100,9 @@
 .editProjectBtn svg {
   width: 20px;
   height: 20px;
+  color: white;
+  fill: currentColor;
+}
   color: white;
 }
 

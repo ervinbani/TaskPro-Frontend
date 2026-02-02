@@ -135,10 +135,11 @@ const ProjectDetail = () => {
 
   const getFilteredTasks = () => {
     return tasks.filter((task) => {
-      // Check if search matches
-      const matchesSearch = task.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      // Check if search matches in title or description
+      const searchLower = searchQuery.toLowerCase();
+      const matchesSearch = 
+        task.title.toLowerCase().includes(searchLower) ||
+        (task.description?.toLowerCase().includes(searchLower) ?? false);
 
       // If "All Tasks" is selected, show all
       if (filterCategory === "All Tasks") {
