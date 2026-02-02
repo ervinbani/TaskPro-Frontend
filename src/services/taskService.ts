@@ -3,7 +3,9 @@ import type { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
 
 // Get all tasks for a project
 export const getProjectTasks = async (projectId: string): Promise<Task[]> => {
-  const response = await api.get<Task[]>(`/api/tasks/projects/${projectId}/tasks`);
+  const response = await api.get<Task[]>(
+    `/api/tasks/projects/${projectId}/tasks`,
+  );
   return response.data;
 };
 
