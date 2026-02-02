@@ -1,5 +1,9 @@
 import api from "./api";
-import type { Project, CreateProjectDto, UpdateProjectDto } from "../types/project";
+import type {
+  Project,
+  CreateProjectDto,
+  UpdateProjectDto,
+} from "../types/project";
 
 // Get all user's projects
 export const getAllProjects = async (): Promise<Project[]> => {

@@ -5,7 +5,11 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import type { User, LoginCredentials, RegisterCredentials } from "../types/user";
+import type {
+  User,
+  LoginCredentials,
+  RegisterCredentials,
+} from "../types/user";
 import * as authService from "../services/authService";
 import { getToken, getUser } from "../utils/storage";
 
