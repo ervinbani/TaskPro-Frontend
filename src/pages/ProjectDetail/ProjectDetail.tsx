@@ -137,7 +137,7 @@ const ProjectDetail = () => {
     return tasks.filter((task) => {
       // Check if search matches in title or description
       const searchLower = searchQuery.toLowerCase();
-      const matchesSearch = 
+      const matchesSearch =
         task.title.toLowerCase().includes(searchLower) ||
         (task.description?.toLowerCase().includes(searchLower) ?? false);
 
