@@ -1,8 +1,9 @@
 import { useState } from "react";
+import type { TaskComment } from "../../types/task";
 import styles from "./TaskComments.module.css";
 
 interface TaskCommentsProps {
-  comments: string[];
+  comments: TaskComment[];
   onAddComment: (comment: string) => void;
   onEditComment: (index: number, newComment: string) => void;
   onDeleteComment: (index: number) => void;
@@ -25,9 +26,9 @@ const TaskComments = ({
     }
   };
 
-  const handleStartEdit = (index: number, currentComment: string) => {
+  const handleStartEdit = (index: number, currentComment: TaskComment) => {
     setEditingIndex(index);
-    setEditText(currentComment);
+    setEditText(currentComment.description);
   };
 
   const handleSaveEdit = (index: number) => {
@@ -79,35 +80,54 @@ const TaskComments = ({
                 </div>
               ) : (
                 <>
-                  <p className={styles.commentText}>{comment}</p>
-                  <div className={styles.commentActions}>
-                    <button
-                      onClick={() => handleStartEdit(index, comment)}
-                      className={styles.editBtn}
-                      title="Edit comment"
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you want to delete this comment?",
-                          )
-                        ) {
-                          onDeleteComment(index);
-                        }
-                      }}
-                      className={styles.deleteBtn}
-                      title="Delete comment"
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                      </svg>
-                    </button>
+                  <div className={styles.commentHeader}>
+                    <div className={styles.commentAuthor}>
+                      <span className={styles.username}>
+                        {comment.owner.username}
+                      </span>
+                      <span className={styles.commentDate}>
+                        {new Date(comment.createdAt).toLocaleDateString(
+                          "en-US",
+                          {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          },
+                        )}
+                      </span>
+                    </div>
+                    <div className={styles.commentActions}>
+                      <button
+                        onClick={() => handleStartEdit(index, comment)}
+                        className={styles.editBtn}
+                        title="Edit comment"
+                      >
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this comment?",
+                            )
+                          ) {
+                            onDeleteComment(index);
+                          }
+                        }}
+                        className={styles.deleteBtn}
+                        title="Delete comment"
+                      >
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
+                  <p className={styles.commentText}>{comment.description}</p>
                 </>
               )}
             </div>

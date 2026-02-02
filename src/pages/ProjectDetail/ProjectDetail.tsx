@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import type { Project } from "../../types/project";
-import type { Task, TaskStatus, CreateTaskDto } from "../../types/task";
+import type { Task, TaskStatus, CreateTaskDto, TaskComment } from "../../types/task";
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
 import ProjectEditModal from "../../components/projects/ProjectEditModal";
 import TaskComments from "../../components/tasks/TaskComments";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./ProjectDetail.module.css";
 
 const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const { user } = useAuth();
   const [project, setProject] = useState<Project | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -139,17 +141,34 @@ const ProjectDetail = () => {
   };
 
   const handleAddComment = (comment: string) => {
+    if (!user) {
+      toast.error("You must be logged in to add comments");
+      return;
+    }
+
+    const newComment: TaskComment = {
+      description: comment,
+      owner: {
+        username: user.username,
+        email: user.email,
+      },
+      createdAt: new Date().toISOString(),
+    };
+
     const currentComments = taskForm.comments || [];
     setTaskForm({
       ...taskForm,
-      comments: [...currentComments, comment],
+      comments: [...currentComments, newComment],
     });
   };
 
   const handleEditComment = (index: number, newComment: string) => {
     const currentComments = taskForm.comments || [];
     const updatedComments = [...currentComments];
-    updatedComments[index] = newComment;
+    updatedComments[index] = {
+      ...updatedComments[index],
+      description: newComment,
+    };
     setTaskForm({
       ...taskForm,
       comments: updatedComments,

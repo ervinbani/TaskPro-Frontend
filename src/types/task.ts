@@ -1,5 +1,14 @@
 export type TaskStatus = "To Do" | "In Progress" | "Done";
 
+export interface TaskComment {
+  description: string;
+  owner: {
+    username: string;
+    email: string;
+  };
+  createdAt: string;
+}
+
 export interface Task {
   _id: string;
   title: string;
@@ -7,7 +16,7 @@ export interface Task {
   status: TaskStatus;
   tags?: string[]; // Tags scelti dai tags del progetto
   progress?: number; // 0-100
-  comments?: string[]; // Array di commenti
+  comments?: TaskComment[]; // Array di commenti
   project: string; // ID del progetto
   createdAt?: string;
   updatedAt?: string;
@@ -19,7 +28,7 @@ export interface CreateTaskDto {
   status?: TaskStatus;
   tags?: string[];
   progress?: number;
-  comments?: string[];
+  comments?: TaskComment[];
 }
 
 export interface UpdateTaskDto {
@@ -27,6 +36,6 @@ export interface UpdateTaskDto {
   description?: string;
   status?: TaskStatus;
   tags?: string[];
-  comments?: string[];
+  comments?: TaskComment[];
   progress?: number;
 }
