@@ -12,6 +12,7 @@ import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
 import ProjectEditModal from "../../components/projects/ProjectEditModal";
+import ProjectCollaborators from "../../components/projects/ProjectCollaborators";
 import TaskComments from "../../components/tasks/TaskComments";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./ProjectDetail.module.css";
@@ -27,6 +28,7 @@ const ProjectDetail = () => {
   const [filterCategory, setFilterCategory] = useState<string>("All Tasks");
   const [searchQuery, setSearchQuery] = useState("");
   const [showEditProjectModal, setShowEditProjectModal] = useState(false);
+  const [showCollaboratorsModal, setShowCollaboratorsModal] = useState(false);
 
   const [taskForm, setTaskForm] = useState<CreateTaskDto>({
     title: "",
@@ -252,6 +254,15 @@ const ProjectDetail = () => {
           />
         </div>
         <div className={styles.headerActions}>
+          <button
+            className={styles.iconBtn}
+            onClick={() => setShowCollaboratorsModal(true)}
+            title="Manage collaborators"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+            </svg>
+          </button>
           <button className={styles.iconBtn}>
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
@@ -512,6 +523,16 @@ const ProjectDetail = () => {
           project={project}
           onClose={() => setShowEditProjectModal(false)}
           onUpdate={handleUpdateProject}
+        />
+      )}
+
+      {/* Collaborators Modal */}
+      {showCollaboratorsModal && project && user && (
+        <ProjectCollaborators
+          project={project}
+          currentUserId={user._id}
+          onUpdate={handleUpdateProject}
+          onClose={() => setShowCollaboratorsModal(false)}
         />
       )}
     </div>

@@ -38,3 +38,26 @@ export const updateProject = async (
 export const deleteProject = async (id: string): Promise<void> => {
   await api.delete(`/api/projects/${id}`);
 };
+
+// Add collaborator to project
+export const addCollaborator = async (
+  projectId: string,
+  identifier: { email?: string; username?: string },
+): Promise<Project> => {
+  const response = await api.post<Project>(
+    `/api/projects/${projectId}/collaborators`,
+    identifier,
+  );
+  return response.data;
+};
+
+// Remove collaborator from project
+export const removeCollaborator = async (
+  projectId: string,
+  userId: string,
+): Promise<Project> => {
+  const response = await api.delete<Project>(
+    `/api/projects/${projectId}/collaborators/${userId}`,
+  );
+  return response.data;
+};
