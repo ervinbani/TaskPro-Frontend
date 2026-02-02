@@ -7,6 +7,7 @@ import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
 import ProjectEditModal from "../../components/projects/ProjectEditModal";
+import TaskComments from "../../components/tasks/TaskComments";
 import styles from "./ProjectDetail.module.css";
 
 const ProjectDetail = () => {
@@ -26,6 +27,7 @@ const ProjectDetail = () => {
     status: "To Do",
     tags: [],
     progress: 0,
+    comments: [],
   });
 
   useEffect(() => {
@@ -61,6 +63,7 @@ const ProjectDetail = () => {
       status,
       tags: [],
       progress: 0,
+      comments: [],
     });
     setShowModal(true);
   };
@@ -73,6 +76,7 @@ const ProjectDetail = () => {
       status: task.status,
       tags: task.tags || [],
       progress: task.progress || 0,
+      comments: task.comments || [],
     });
     setShowModal(true);
   };
@@ -125,12 +129,39 @@ const ProjectDetail = () => {
       status: "To Do",
       tags: [],
       progress: 0,
+      comments: [],
     });
     setEditingTask(null);
   };
 
   const handleUpdateProject = (updatedProject: Project) => {
     setProject(updatedProject);
+  };
+
+  const handleAddComment = (comment: string) => {
+    const currentComments = taskForm.comments || [];
+    setTaskForm({
+      ...taskForm,
+      comments: [...currentComments, comment],
+    });
+  };
+
+  const handleEditComment = (index: number, newComment: string) => {
+    const currentComments = taskForm.comments || [];
+    const updatedComments = [...currentComments];
+    updatedComments[index] = newComment;
+    setTaskForm({
+      ...taskForm,
+      comments: updatedComments,
+    });
+  };
+
+  const handleDeleteComment = (index: number) => {
+    const currentComments = taskForm.comments || [];
+    setTaskForm({
+      ...taskForm,
+      comments: currentComments.filter((_, i) => i !== index),
+    });
   };
 
   const getFilteredTasks = () => {
@@ -423,6 +454,15 @@ const ProjectDetail = () => {
                     ))}
                   </div>
                 </div>
+              )}
+
+              {editingTask && (
+                <TaskComments
+                  comments={taskForm.comments || []}
+                  onAddComment={handleAddComment}
+                  onEditComment={handleEditComment}
+                  onDeleteComment={handleDeleteComment}
+                />
               )}
 
               <div className={styles.modalActions}>

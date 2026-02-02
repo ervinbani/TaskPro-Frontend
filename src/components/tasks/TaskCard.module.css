@@ -106,6 +106,20 @@
   text-align: right;
 }
 
+.commentsIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.commentsIndicator svg {
+  width: 16px;
+  height: 16px;
+}
+
 .footer {
   display: flex;
   justify-content: flex-end;
