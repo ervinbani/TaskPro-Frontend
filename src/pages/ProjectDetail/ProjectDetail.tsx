@@ -299,15 +299,6 @@ const ProjectDetail = () => {
               : "Recently"}
           </p>
           <h1 className={styles.projectTitle}>{project.name}</h1>
-          {project.tags && project.tags.length > 0 && (
-            <div className={styles.projectTags}>
-              {project.tags.map((tag, index) => (
-                <span key={index} className={styles.projectTag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
