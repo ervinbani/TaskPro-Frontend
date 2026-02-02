@@ -70,13 +70,13 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 20px;
+  color: #6b7280;
 }
 
 .iconBtn svg {
   width: 20px;
   height: 20px;
-  color: #6b7280;
-  fill: currentColor;
 }
 
 .iconBtn:hover {
@@ -95,13 +95,13 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 20px;
+  color: white;
 }
 
 .editProjectBtn svg {
   width: 20px;
   height: 20px;
-  color: white;
-  fill: currentColor;
 }
 
 .editProjectBtn:hover {
