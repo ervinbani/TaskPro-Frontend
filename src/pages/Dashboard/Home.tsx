@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { Project } from "../../types/project";
+import type { Project } from "../../types/project";
 
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";

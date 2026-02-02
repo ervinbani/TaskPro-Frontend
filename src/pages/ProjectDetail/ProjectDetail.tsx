@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Project } from "../../types/project";
-import { Task, TaskStatus, CreateTaskDto } from "../../types/task";
+import type { Project } from "../../types/project";
+import type { Task, TaskStatus, CreateTaskDto } from "../../types/task";
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import TaskColumn from "../../components/tasks/TaskColumn";
