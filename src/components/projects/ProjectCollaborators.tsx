@@ -136,27 +136,32 @@ const ProjectCollaborators = ({
 
           {/* Collaborators list */}
           <div className={styles.collaboratorsList}>
-            <h3>
-              Collaborators ({collaborators.length})
-            </h3>
+            <h3>Collaborators ({collaborators.length})</h3>
 
             {collaborators.length > 0 ? (
               <div className={styles.list}>
                 {collaborators.map((collaborator) => (
-                  <div key={collaborator._id} className={styles.collaboratorItem}>
+                  <div
+                    key={collaborator._id}
+                    className={styles.collaboratorItem}
+                  >
                     <div className={styles.collaboratorInfo}>
                       <div className={styles.avatar}>
                         {collaborator.username.charAt(0).toUpperCase()}
                       </div>
                       <div className={styles.details}>
-                        <p className={styles.username}>{collaborator.username}</p>
+                        <p className={styles.username}>
+                          {collaborator.username}
+                        </p>
                         <p className={styles.email}>{collaborator.email}</p>
                       </div>
                     </div>
 
                     {isOwner && (
                       <button
-                        onClick={() => handleRemoveCollaborator(collaborator._id)}
+                        onClick={() =>
+                          handleRemoveCollaborator(collaborator._id)
+                        }
                         className={styles.removeBtn}
                         disabled={loading}
                         title="Remove collaborator"
