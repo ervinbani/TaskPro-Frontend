@@ -1,5 +1,5 @@
 import api from "./api";
-import { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
+import type { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
 
 // Get all tasks for a project
 export const getProjectTasks = async (projectId: string): Promise<Task[]> => {

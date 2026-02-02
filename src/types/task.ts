@@ -24,7 +24,6 @@ export interface UpdateTaskDto {
   title?: string;
   description?: string;
   status?: TaskStatus;
-  category?: TaskCategory;
   tags?: string[];
   progress?: number;
 }

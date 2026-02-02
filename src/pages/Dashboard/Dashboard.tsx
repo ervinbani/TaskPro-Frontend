@@ -1,6 +1,6 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Project } from "../../types/project";
+import type { Project } from "../../types/project";
 import * as projectService from "../../services/projectService";
 import { toast } from "react-toastify";
 import Sidebar from "../../components/layout/Sidebar";
@@ -8,7 +8,6 @@ import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [newProject, setNewProject] = useState({
@@ -25,14 +24,11 @@ const Dashboard = () => {
 
   const loadProjects = async () => {
     try {
-      setLoading(true);
       const data = await projectService.getAllProjects();
       setProjects(data);
     } catch (error: any) {
       toast.error("Failed to load projects");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 

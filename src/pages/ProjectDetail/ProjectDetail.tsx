@@ -15,7 +15,6 @@ const ProjectDetail = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState<TaskStatus>("To Do");
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>("All Tasks");
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,13 +54,11 @@ const ProjectDetail = () => {
   };
 
   const handleAddTask = (status: TaskStatus) => {
-    setSelectedStatus(status);
     setEditingTask(null);
     setTaskForm({
       title: "",
       description: "",
       status,
-      category: undefined,
       tags: [],
       progress: 0,
     });
@@ -74,7 +71,6 @@ const ProjectDetail = () => {
       title: task.title,
       description: task.description || "",
       status: task.status,
-      category: task.category,
       tags: task.tags || [],
       progress: task.progress || 0,
     });

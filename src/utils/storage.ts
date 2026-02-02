@@ -1,4 +1,4 @@
-import { User } from "../types/user";
+import type { User } from "../types/user";
 
 // Token management
 export const getToken = (): string | null => {

@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { Project } from "../../types/project";
+import type { Project } from "../../types/project";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {

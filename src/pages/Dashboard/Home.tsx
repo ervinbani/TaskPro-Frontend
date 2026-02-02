@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { Project } from "../../types/project";
-import { Task } from "../../types/task";
+
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
 import styles from "./Home.module.css";

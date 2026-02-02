@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Project, UpdateProjectDto } from "../../types/project";
+import type { Project, UpdateProjectDto } from "../../types/project";
 import * as projectService from "../../services/projectService";
 import { toast } from "react-toastify";
 import styles from "./ProjectEditModal.module.css";

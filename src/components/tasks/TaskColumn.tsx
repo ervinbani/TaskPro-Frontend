@@ -1,4 +1,4 @@
-import { Task, TaskStatus } from "../../types/task";
+import type { Task, TaskStatus } from "../../types/task";
 import TaskCard from "./TaskCard";
 import styles from "./TaskColumn.module.css";
 

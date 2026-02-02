@@ -1,4 +1,4 @@
-import { Task } from "../../types/task";
+import type { Task } from "../../types/task";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
