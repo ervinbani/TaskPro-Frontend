@@ -3,7 +3,7 @@ import type { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
 
 // Get all tasks for a project
 export const getProjectTasks = async (projectId: string): Promise<Task[]> => {
-  const response = await api.get<Task[]>(`/tasks/projects/${projectId}/tasks`);
+  const response = await api.get<Task[]>(`/api/tasks/projects/${projectId}/tasks`);
   return response.data;
 };
 
@@ -13,7 +13,7 @@ export const createTask = async (
   data: CreateTaskDto,
 ): Promise<Task> => {
   const response = await api.post<Task>(
-    `/tasks/projects/${projectId}/tasks`,
+    `/api/tasks/projects/${projectId}/tasks`,
     data,
   );
   return response.data;
@@ -24,11 +24,11 @@ export const updateTask = async (
   taskId: string,
   data: UpdateTaskDto,
 ): Promise<Task> => {
-  const response = await api.put<Task>(`/tasks/${taskId}`, data);
+  const response = await api.put<Task>(`/api/tasks/${taskId}`, data);
   return response.data;
 };
 
 // Delete task
 export const deleteTask = async (taskId: string): Promise<void> => {
-  await api.delete(`/tasks/${taskId}`);
+  await api.delete(`/api/tasks/${taskId}`);
 };

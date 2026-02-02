@@ -7,13 +7,13 @@ import type {
 
 // Get all user's projects
 export const getAllProjects = async (): Promise<Project[]> => {
-  const response = await api.get<Project[]>("/projects");
+  const response = await api.get<Project[]>("/api/projects");
   return response.data;
 };
 
 // Get single project by ID
 export const getProject = async (id: string): Promise<Project> => {
-  const response = await api.get<Project>(`/projects/${id}`);
+  const response = await api.get<Project>(`/api/projects/${id}`);
   return response.data;
 };
 
@@ -21,7 +21,7 @@ export const getProject = async (id: string): Promise<Project> => {
 export const createProject = async (
   data: CreateProjectDto,
 ): Promise<Project> => {
-  const response = await api.post<Project>("/projects", data);
+  const response = await api.post<Project>("/api/projects", data);
   return response.data;
 };
 
@@ -30,11 +30,11 @@ export const updateProject = async (
   id: string,
   data: UpdateProjectDto,
 ): Promise<Project> => {
-  const response = await api.put<Project>(`/projects/${id}`, data);
+  const response = await api.put<Project>(`/api/projects/${id}`, data);
   return response.data;
 };
 
 // Delete project
 export const deleteProject = async (id: string): Promise<void> => {
-  await api.delete(`/projects/${id}`);
+  await api.delete(`/api/projects/${id}`);
 };

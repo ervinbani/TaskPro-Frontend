@@ -13,7 +13,7 @@ export const register = async (
   credentials: RegisterCredentials,
 ): Promise<AuthResponse> => {
   const response = await api.post<BackendAuthResponse>(
-    "/user/register",
+    "/api/user/register",
     credentials,
   );
 
@@ -45,7 +45,7 @@ export const login = async (
   credentials: LoginCredentials,
 ): Promise<AuthResponse> => {
   const response = await api.post<BackendAuthResponse>(
-    "/user/login",
+    "/api/user/login",
     credentials,
   );
 
