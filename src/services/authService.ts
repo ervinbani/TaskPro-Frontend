@@ -90,9 +90,9 @@ export const updateProfile = async (data: {
   newPassword?: string;
 }): Promise<User> => {
   const response = await api.put<User>("/api/user/profile", data);
-  
+
   // Update user in localStorage
   setUser(response.data);
-  
+
   return response.data;
 };

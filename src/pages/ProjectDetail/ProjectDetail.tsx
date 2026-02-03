@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserGroup, faBell, faUser, faPencil } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserGroup,
+  faBell,
+  faUser,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
 import type { Project } from "../../types/project";
 import type {
   Task,

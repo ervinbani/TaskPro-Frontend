@@ -22,90 +22,90 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          {/* Protected routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Home />} />
-            <Route path="projects" element={<ProjectList />} />
-          </Route>
-
-          <Route
-            path="/projects/:projectId"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<ProjectDetail />} />
-          </Route>
-
-          <Route
-            path="/calendar"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
+            {/* Protected routes */}
             <Route
-              index
+              path="/dashboard"
               element={
-                <div style={{ padding: "2rem", textAlign: "center" }}>
-                  <h1>Calendar (Coming Soon)</h1>
-                </div>
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
               }
-            />
-          </Route>
+            >
+              <Route index element={<Home />} />
+              <Route path="projects" element={<ProjectList />} />
+            </Route>
 
-          <Route
-            path="/messages"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
             <Route
-              index
+              path="/projects/:projectId"
               element={
-                <div style={{ padding: "2rem", textAlign: "center" }}>
-                  <h1>Messages (Coming Soon)</h1>
-                </div>
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
               }
-            />
-          </Route>
+            >
+              <Route index element={<ProjectDetail />} />
+            </Route>
 
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </Router>
+            <Route
+              path="/calendar"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                index
+                element={
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h1>Calendar (Coming Soon)</h1>
+                  </div>
+                }
+              />
+            </Route>
 
-      {/* Toast notifications */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </AuthProvider>
+            <Route
+              path="/messages"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                index
+                element={
+                  <div style={{ padding: "2rem", textAlign: "center" }}>
+                    <h1>Messages (Coming Soon)</h1>
+                  </div>
+                }
+              />
+            </Route>
+
+            {/* Default redirect */}
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </Router>
+
+        {/* Toast notifications */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

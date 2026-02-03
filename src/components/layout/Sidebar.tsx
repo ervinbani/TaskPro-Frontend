@@ -114,13 +114,21 @@ const Sidebar = ({
       </nav>
 
       <div className={styles.sidebarFooter}>
-        <button onClick={toggleTheme} className={styles.themeToggle} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-          <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
-          <span>{theme === 'light' ? 'Dark' : 'Light'} Mode</span>
+        <button
+          onClick={toggleTheme}
+          className={styles.themeToggle}
+          title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+        >
+          <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
+          <span>{theme === "light" ? "Dark" : "Light"} Mode</span>
         </button>
 
         <div className={styles.footerActions}>
-          <button onClick={() => setShowProfileModal(true)} className={styles.profileBtn} title="User Profile">
+          <button
+            onClick={() => setShowProfileModal(true)}
+            className={styles.profileBtn}
+            title="User Profile"
+          >
             <FontAwesomeIcon icon={faUser} />
           </button>
           <button onClick={handleLogout} className={styles.logoutBtn}>

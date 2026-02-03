@@ -12,7 +12,11 @@ interface UserProfileModalProps {
   onUpdate: (updatedUser: User) => void;
 }
 
-const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) => {
+const UserProfileModal = ({
+  user,
+  onClose,
+  onUpdate,
+}: UserProfileModalProps) => {
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
@@ -25,7 +29,10 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
+    if (
+      formData.newPassword &&
+      formData.newPassword !== formData.confirmPassword
+    ) {
       toast.error("New passwords don't match");
       return;
     }
@@ -86,7 +93,9 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
               type="text"
               id="username"
               value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
               required
             />
           </div>
@@ -100,7 +109,9 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
               type="email"
               id="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
             />
           </div>
@@ -118,7 +129,9 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
               type="password"
               id="currentPassword"
               value={formData.currentPassword}
-              onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, currentPassword: e.target.value })
+              }
               placeholder="Enter current password"
             />
           </div>
@@ -132,7 +145,9 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
               type="password"
               id="newPassword"
               value={formData.newPassword}
-              onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, newPassword: e.target.value })
+              }
               placeholder="Enter new password"
             />
           </div>
@@ -146,7 +161,9 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
               type="password"
               id="confirmPassword"
               value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
               placeholder="Confirm new password"
             />
           </div>
@@ -160,7 +177,11 @@ const UserProfileModal = ({ user, onClose, onUpdate }: UserProfileModalProps) =>
             >
               Cancel
             </button>
-            <button type="submit" className={styles.submitBtn} disabled={loading}>
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={loading}
+            >
               {loading ? "Saving..." : "Save Changes"}
             </button>
           </div>
