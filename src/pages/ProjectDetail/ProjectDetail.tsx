@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { HiUserGroup, HiBell, HiUser, HiPencil } from "react-icons/hi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserGroup, faBell, faUser, faPencil } from "@fortawesome/free-solid-svg-icons";
 import type { Project } from "../../types/project";
 import type {
   Task,
@@ -260,20 +261,20 @@ const ProjectDetail = () => {
             onClick={() => setShowCollaboratorsModal(true)}
             title="Manage collaborators"
           >
-            <HiUserGroup />
+            <FontAwesomeIcon icon={faUserGroup} />
           </button>
           <button className={styles.iconBtn}>
-            <HiBell />
+            <FontAwesomeIcon icon={faBell} />
           </button>
           <button className={styles.iconBtn}>
-            <HiUser />
+            <FontAwesomeIcon icon={faUser} />
           </button>
           <button
             className={styles.editProjectBtn}
             onClick={() => setShowEditProjectModal(true)}
             title="Edit project"
           >
-            <HiPencil />
+            <FontAwesomeIcon icon={faPencil} />
           </button>
         </div>
       </header>

@@ -81,3 +81,18 @@ export const logout = (): void => {
 export const getCurrentUser = (): User | null => {
   return getUser();
 };
+
+// Update user profile
+export const updateProfile = async (data: {
+  username?: string;
+  email?: string;
+  currentPassword?: string;
+  newPassword?: string;
+}): Promise<User> => {
+  const response = await api.put<User>("/api/user/profile", data);
+  
+  // Update user in localStorage
+  setUser(response.data);
+  
+  return response.data;
+};

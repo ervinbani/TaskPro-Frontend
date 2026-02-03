@@ -1,8 +1,8 @@
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #f8f9fa;
-  border-right: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -10,7 +10,7 @@
   top: 0;
   overflow-y: auto;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .closeBtn {
@@ -22,7 +22,7 @@
   height: 32px;
   background: transparent;
   border: none;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 2rem;
   line-height: 1;
   cursor: pointer;
@@ -31,7 +31,7 @@
 }
 
 .closeBtn:hover {
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
@@ -254,8 +254,62 @@
   background: #6b7280;
 }
 
+.sidebarFooter {
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.themeToggle {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.themeToggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-color-hover);
+}
+
+.footerActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profileBtn {
+  width: 48px;
+  padding: 0.75rem;
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profileBtn:hover {
+  background: var(--accent-hover);
+}
+
 .logoutBtn {
-  margin: 1rem;
+  flex: 1;
   padding: 0.75rem;
   background: #fee2e2;
   color: #dc2626;

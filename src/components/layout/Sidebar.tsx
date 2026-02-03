@@ -1,6 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../contexts/ThemeContext";
+import UserProfileModal from "../common/UserProfileModal";
 import type { Project } from "../../types/project";
+import type { User } from "../../types/user";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
@@ -16,12 +22,19 @@ const Sidebar = ({
   isOpen = false,
   onClose,
 }: SidebarProps) => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
+  };
+
+  const handleUpdateUser = (updatedUser: User) => {
+    // User is updated in localStorage by the service
+    // Context will be updated on next render
   };
 
   return (
@@ -100,9 +113,29 @@ const Sidebar = ({
         </NavLink>
       </nav>
 
-      <button onClick={handleLogout} className={styles.logoutBtn}>
-        Logout
-      </button>
+      <div className={styles.sidebarFooter}>
+        <button onClick={toggleTheme} className={styles.themeToggle} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+          <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
+          <span>{theme === 'light' ? 'Dark' : 'Light'} Mode</span>
+        </button>
+
+        <div className={styles.footerActions}>
+          <button onClick={() => setShowProfileModal(true)} className={styles.profileBtn} title="User Profile">
+            <FontAwesomeIcon icon={faUser} />
+          </button>
+          <button onClick={handleLogout} className={styles.logoutBtn}>
+            Logout
+          </button>
+        </div>
+      </div>
+
+      {showProfileModal && user && (
+        <UserProfileModal
+          user={user}
+          onClose={() => setShowProfileModal(false)}
+          onUpdate={handleUpdateUser}
+        />
+      )}
     </aside>
   );
 };
