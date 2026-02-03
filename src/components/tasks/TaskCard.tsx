@@ -77,7 +77,9 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
             </div>
           )}
           {task.priority && (
-            <div className={`${styles.priorityBadge} ${getPriorityClass(task.priority)}`}>
+            <div
+              className={`${styles.priorityBadge} ${getPriorityClass(task.priority)}`}
+            >
               {task.priority}
             </div>
           )}
