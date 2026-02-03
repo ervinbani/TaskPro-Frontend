@@ -82,17 +82,46 @@ export const getCurrentUser = (): User | null => {
   return getUser();
 };
 
-// Update user profile
+// Update user profile (username and/or email)
 export const updateProfile = async (data: {
   username?: string;
   email?: string;
-  currentPassword?: string;
-  newPassword?: string;
 }): Promise<User> => {
+  // Validazioni frontend
+  if (data.username && data.username.length < 3) {
+    throw new Error("Username must be at least 3 characters");
+  }
+
+  if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    throw new Error("Invalid email format");
+  }
+
   const response = await api.put<User>("/api/user/profile", data);
 
   // Update user in localStorage
   setUser(response.data);
+
+  return response.data;
+};
+
+// Update user password
+export const updatePassword = async (data: {
+  currentPassword: string;
+  newPassword: string;
+}): Promise<{ message: string }> => {
+  // Validazione frontend
+  if (data.newPassword.length < 6) {
+    throw new Error("New password must be at least 6 characters");
+  }
+
+  if (!data.currentPassword) {
+    throw new Error("Current password is required");
+  }
+
+  const response = await api.put<{ message: string }>(
+    "/api/user/update-password",
+    data,
+  );
 
   return response.data;
 };

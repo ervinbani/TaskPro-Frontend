@@ -12,6 +12,7 @@ import type { Project } from "../../types/project";
 import type {
   Task,
   TaskStatus,
+  TaskPriority,
   CreateTaskDto,
   TaskComment,
 } from "../../types/task";
@@ -41,6 +42,7 @@ const ProjectDetail = () => {
     title: "",
     description: "",
     status: "To Do",
+    priority: "Medium",
     tags: [],
     progress: 0,
     comments: [],
@@ -77,6 +79,7 @@ const ProjectDetail = () => {
       title: "",
       description: "",
       status,
+      priority: "Medium",
       tags: [],
       progress: 0,
       comments: [],
@@ -90,6 +93,7 @@ const ProjectDetail = () => {
       title: task.title,
       description: task.description || "",
       status: task.status,
+      priority: task.priority || "Medium",
       tags: task.tags || [],
       progress: task.progress || 0,
       comments: task.comments || [],
@@ -143,6 +147,7 @@ const ProjectDetail = () => {
       title: "",
       description: "",
       status: "To Do",
+      priority: "Medium",
       tags: [],
       progress: 0,
       comments: [],
@@ -424,6 +429,24 @@ const ProjectDetail = () => {
                     <option value="To Do">To Do</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Done">Done</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="priority">Priority</label>
+                  <select
+                    id="priority"
+                    value={taskForm.priority || "Medium"}
+                    onChange={(e) =>
+                      setTaskForm({
+                        ...taskForm,
+                        priority: e.target.value as TaskPriority,
+                      })
+                    }
+                  >
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
                   </select>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 export type TaskStatus = "To Do" | "In Progress" | "Done";
+export type TaskPriority = "High" | "Medium" | "Low";
 
 export interface TaskComment {
   description: string;
@@ -14,6 +15,7 @@ export interface Task {
   title: string;
   description?: string;
   status: TaskStatus;
+  priority?: TaskPriority; // Priorità del task
   tags?: string[]; // Tags scelti dai tags del progetto
   progress?: number; // 0-100
   comments?: TaskComment[]; // Array di commenti
@@ -26,6 +28,7 @@ export interface CreateTaskDto {
   title: string;
   description?: string;
   status?: TaskStatus;
+  priority?: TaskPriority;
   tags?: string[];
   progress?: number;
   comments?: TaskComment[];
@@ -35,6 +38,7 @@ export interface UpdateTaskDto {
   title?: string;
   description?: string;
   status?: TaskStatus;
+  priority?: TaskPriority;
   tags?: string[];
   comments?: TaskComment[];
   progress?: number;

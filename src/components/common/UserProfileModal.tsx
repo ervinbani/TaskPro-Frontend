@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import type { User } from "../../types/user";
 import * as authService from "../../services/authService";
+import ChangePasswordModal from "./ChangePasswordModal";
 import styles from "./UserProfileModal.module.css";
 
 interface UserProfileModalProps {
@@ -20,39 +21,43 @@ const UserProfileModal = ({
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      formData.newPassword &&
-      formData.newPassword !== formData.confirmPassword
-    ) {
-      toast.error("New passwords don't match");
+    // Validazione username
+    if (formData.username && formData.username.length < 3) {
+      toast.error("Username must be at least 3 characters");
       return;
     }
 
-    if (formData.newPassword && !formData.currentPassword) {
-      toast.error("Current password is required to change password");
+    // Validazione email
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+
+    // Controlla se profilo è stato modificato
+    const profileChanged =
+      formData.username !== user.username || formData.email !== user.email;
+
+    if (!profileChanged) {
+      toast.info("No changes to save");
       return;
     }
 
     try {
       setLoading(true);
 
-      const updateData: any = {
-        username: formData.username,
-        email: formData.email,
-      };
-
-      if (formData.newPassword) {
-        updateData.currentPassword = formData.currentPassword;
-        updateData.newPassword = formData.newPassword;
+      const updateData: { username?: string; email?: string } = {};
+      if (formData.username !== user.username) {
+        updateData.username = formData.username;
+      }
+      if (formData.email !== user.email) {
+        updateData.email = formData.email;
       }
 
       const updatedUser = await authService.updateProfile(updateData);
@@ -60,7 +65,15 @@ const UserProfileModal = ({
       toast.success("Profile updated successfully!");
       onClose();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to update profile");
+      const errorMessage = error.response?.data?.message || error.message;
+
+      if (error.response?.status === 400) {
+        toast.error(errorMessage || "Invalid data provided");
+      } else if (error.response?.status === 404) {
+        toast.error("User not found");
+      } else {
+        toast.error(errorMessage || "Failed to update profile");
+      }
     } finally {
       setLoading(false);
     }
@@ -116,56 +129,15 @@ const UserProfileModal = ({
             />
           </div>
 
-          <div className={styles.divider}>
-            <span>Change Password (Optional)</span>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="currentPassword">
-              <FontAwesomeIcon icon={faLock} />
-              Current Password
-            </label>
-            <input
-              type="password"
-              id="currentPassword"
-              value={formData.currentPassword}
-              onChange={(e) =>
-                setFormData({ ...formData, currentPassword: e.target.value })
-              }
-              placeholder="Enter current password"
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="newPassword">
-              <FontAwesomeIcon icon={faLock} />
-              New Password
-            </label>
-            <input
-              type="password"
-              id="newPassword"
-              value={formData.newPassword}
-              onChange={(e) =>
-                setFormData({ ...formData, newPassword: e.target.value })
-              }
-              placeholder="Enter new password"
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="confirmPassword">
-              <FontAwesomeIcon icon={faLock} />
-              Confirm New Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={(e) =>
-                setFormData({ ...formData, confirmPassword: e.target.value })
-              }
-              placeholder="Confirm new password"
-            />
+          <div className={styles.passwordSection}>
+            <button
+              type="button"
+              onClick={() => setShowPasswordModal(true)}
+              className={styles.changePasswordBtn}
+            >
+              <FontAwesomeIcon icon={faKey} />
+              Change Password
+            </button>
           </div>
 
           <div className={styles.modalActions}>
@@ -187,6 +159,10 @@ const UserProfileModal = ({
           </div>
         </form>
       </div>
+
+      {showPasswordModal && (
+        <ChangePasswordModal onClose={() => setShowPasswordModal(false)} />
+      )}
     </div>
   );
 };

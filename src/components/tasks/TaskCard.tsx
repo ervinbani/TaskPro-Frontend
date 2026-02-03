@@ -1,4 +1,4 @@
-import type { Task } from "../../types/task";
+import type { Task, TaskPriority } from "../../types/task";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
@@ -6,6 +6,20 @@ interface TaskCardProps {
   onEdit?: (task: Task) => void;
   onDelete?: (taskId: string) => void;
 }
+
+const getPriorityClass = (priority?: TaskPriority) => {
+  if (!priority) return "";
+  switch (priority) {
+    case "High":
+      return styles.priorityHigh;
+    case "Medium":
+      return styles.priorityMedium;
+    case "Low":
+      return styles.priorityLow;
+    default:
+      return "";
+  }
+};
 
 const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
   return (
@@ -52,14 +66,23 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
         </div>
       )}
 
-      {task.comments && task.comments.length > 0 && (
-        <div className={styles.commentsIndicator}>
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
-          </svg>
-          <span>{task.comments.length}</span>
+      {(task.comments && task.comments.length > 0) || task.priority ? (
+        <div className={styles.cardFooter}>
+          {task.comments && task.comments.length > 0 && (
+            <div className={styles.commentsIndicator}>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+              </svg>
+              <span>{task.comments.length}</span>
+            </div>
+          )}
+          {task.priority && (
+            <div className={`${styles.priorityBadge} ${getPriorityClass(task.priority)}`}>
+              {task.priority}
+            </div>
+          )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
