@@ -6,7 +6,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../contexts/ThemeContext";
 import UserProfileModal from "../common/UserProfileModal";
 import type { Project } from "../../types/project";
-import type { User } from "../../types/user";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
