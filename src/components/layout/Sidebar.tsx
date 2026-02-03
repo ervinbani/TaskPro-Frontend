@@ -32,7 +32,7 @@ const Sidebar = ({
     navigate("/login");
   };
 
-  const handleUpdateUser = (updatedUser: User) => {
+  const handleUpdateUser = () => {
     // User is updated in localStorage by the service
     // Context will be updated on next render
   };
