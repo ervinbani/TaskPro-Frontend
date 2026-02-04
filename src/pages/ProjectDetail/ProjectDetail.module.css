@@ -430,3 +430,36 @@
   background: #2563eb;
   border-color: #2563eb;
 }
+
+.dueDateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.dueDateHeader label {
+  margin-bottom: 0;
+}
+
+.removeDateBtn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.removeDateBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+:root[data-theme="dark"] .removeDateBtn:hover {
+  background: #7f1d1d;
+  color: #fca5a5;
+}

@@ -44,6 +44,7 @@ const ProjectDetail = () => {
     priority: "Medium",
     tags: [],
     progress: 0,
+    dueDate: null,
     comments: [],
   });
 
@@ -81,6 +82,7 @@ const ProjectDetail = () => {
       priority: "Medium",
       tags: [],
       progress: 0,
+      dueDate: null,
       comments: [],
     });
     setShowModal(true);
@@ -95,6 +97,7 @@ const ProjectDetail = () => {
       priority: task.priority || "Medium",
       tags: task.tags || [],
       progress: task.progress || 0,
+      dueDate: task.dueDate || null,
       comments: task.comments || [],
     });
     setShowModal(true);
@@ -159,6 +162,7 @@ const ProjectDetail = () => {
       priority: "Medium",
       tags: [],
       progress: 0,
+      dueDate: null,
       comments: [],
     });
     setEditingTask(null);
@@ -471,6 +475,37 @@ const ProjectDetail = () => {
                     setTaskForm({
                       ...taskForm,
                       progress: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <div className={styles.dueDateHeader}>
+                  <label htmlFor="dueDate">Due Date</label>
+                  {taskForm.dueDate && (
+                    <button
+                      type="button"
+                      onClick={() => setTaskForm({ ...taskForm, dueDate: null })}
+                      className={styles.removeDateBtn}
+                      title="Remove due date"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <input
+                  type="date"
+                  id="dueDate"
+                  value={
+                    taskForm.dueDate
+                      ? new Date(taskForm.dueDate).toISOString().split("T")[0]
+                      : ""
+                  }
+                  onChange={(e) =>
+                    setTaskForm({
+                      ...taskForm,
+                      dueDate: e.target.value || null,
                     })
                   }
                 />

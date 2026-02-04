@@ -18,6 +18,7 @@ export interface Task {
   priority?: TaskPriority; // Priorità del task
   tags?: string[]; // Tags scelti dai tags del progetto
   progress?: number; // 0-100
+  dueDate?: string | null; // Data di scadenza opzionale (ISO format)
   comments?: TaskComment[]; // Array di commenti
   project: string; // ID del progetto
   createdAt?: string;
@@ -31,6 +32,7 @@ export interface CreateTaskDto {
   priority?: TaskPriority;
   tags?: string[];
   progress?: number;
+  dueDate?: string | null;
   comments?: TaskComment[];
 }
 
@@ -40,6 +42,7 @@ export interface UpdateTaskDto {
   status?: TaskStatus;
   priority?: TaskPriority;
   tags?: string[];
+  dueDate?: string | null;
   comments?: TaskComment[];
   progress?: number;
 }
