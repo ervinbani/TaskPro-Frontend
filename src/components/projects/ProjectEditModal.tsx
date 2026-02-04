@@ -35,8 +35,11 @@ const ProjectEditModal = ({
       onUpdate(updated);
       toast.success("Project updated successfully!");
       onClose();
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to update project");
+    } catch (error: unknown) {
+      const errorMessage = error && typeof error === 'object' && 'response' in error
+        ? (error.response as { data?: { message?: string } })?.data?.message
+        : undefined;
+      toast.error(errorMessage || "Failed to update project");
     }
   };
 

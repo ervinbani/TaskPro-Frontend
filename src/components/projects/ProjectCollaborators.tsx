@@ -61,10 +61,13 @@ const ProjectCollaborators = ({
       onUpdate(updatedProject);
       setIdentifier("");
       toast.success("Collaborator added successfully!");
-    } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Failed to add collaborator",
-      );
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : undefined;
+      toast.error(message || "Failed to add collaborator");
     } finally {
       setLoading(false);
     }
@@ -89,10 +92,13 @@ const ProjectCollaborators = ({
 
       onUpdate(updatedProject);
       toast.success("Collaborator removed successfully!");
-    } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Failed to remove collaborator",
-      );
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : undefined;
+      toast.error(message || "Failed to remove collaborator");
     } finally {
       setLoading(false);
     }

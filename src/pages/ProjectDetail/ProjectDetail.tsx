@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserGroup,
   faBell,
-  faUser,
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import type { Project } from "../../types/project";
@@ -48,13 +47,7 @@ const ProjectDetail = () => {
     comments: [],
   });
 
-  useEffect(() => {
-    if (projectId) {
-      loadProjectData();
-    }
-  }, [projectId]);
-
-  const loadProjectData = async () => {
+  const loadProjectData = useCallback(async () => {
     if (!projectId) return;
 
     try {
@@ -65,13 +58,19 @@ const ProjectDetail = () => {
       ]);
       setProject(projectData);
       setTasks(tasksData);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to load project data");
       console.error(error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [projectId]);
+
+  useEffect(() => {
+    if (projectId) {
+      loadProjectData();
+    }
+  }, [projectId, loadProjectData]);
 
   const handleAddTask = (status: TaskStatus) => {
     setEditingTask(null);
@@ -123,8 +122,13 @@ const ProjectDetail = () => {
       }
       setShowModal(false);
       resetForm();
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to save task");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : "Failed to save task";
+      toast.error(message);
     }
   };
 
@@ -137,8 +141,13 @@ const ProjectDetail = () => {
       await taskService.deleteTask(taskId);
       setTasks(tasks.filter((t) => t._id !== taskId));
       toast.success("Task deleted successfully!");
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to delete task");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : "Failed to delete task";
+      toast.error(message);
     }
   };
 
