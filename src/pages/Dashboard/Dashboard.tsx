@@ -48,9 +48,10 @@ const Dashboard = () => {
       setTagInput("");
       toast.success("Project created successfully!");
     } catch (error: unknown) {
-      const message = error instanceof Error && 'response' in error 
-        ? (error as any).response?.data?.message 
-        : "Failed to create project";
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as any).response?.data?.message
+          : "Failed to create project";
       toast.error(message);
     }
   };
