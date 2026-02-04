@@ -276,9 +276,7 @@ const ProjectDetail = () => {
           <button className={styles.iconBtn}>
             <FontAwesomeIcon icon={faBell} />
           </button>
-          <button className={styles.iconBtn}>
-            <FontAwesomeIcon icon={faUser} />
-          </button>
+
           <button
             className={styles.editProjectBtn}
             onClick={() => setShowEditProjectModal(true)}

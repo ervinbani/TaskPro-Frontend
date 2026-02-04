@@ -9,7 +9,7 @@
   text-align: center;
   padding: 4rem;
   font-size: 1.1rem;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .error {
@@ -27,10 +27,10 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: white;
+  background: var(--bg-primary);
   padding: 0.75rem 1.25rem;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   flex: 1;
   max-width: 400px;
 }
@@ -38,7 +38,7 @@
 .searchBar svg {
   width: 20px;
   height: 20px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .searchBar input {
@@ -46,12 +46,12 @@
   outline: none;
   flex: 1;
   font-size: 0.9rem;
-  color: #1a1a1a;
+  color: var(--text-primary);
   background: transparent;
 }
 
 .searchBar input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .headerActions {
@@ -62,8 +62,8 @@
 .iconBtn {
   width: 40px;
   height: 40px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -71,19 +71,19 @@
   cursor: pointer;
   transition: all 0.2s;
   font-size: 20px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .iconBtn:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: var(--bg-secondary);
+  border-color: var(--border-color-hover);
 }
 
 .editProjectBtn {
   width: 40px;
   height: 40px;
-  background: #4338ca;
-  border: 1px solid #4338ca;
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -95,8 +95,8 @@
 }
 
 .editProjectBtn:hover {
-  background: #3730a3;
-  border-color: #3730a3;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .projectInfo {
@@ -106,14 +106,14 @@
 .lastUpdated {
   margin: 0 0 0.25rem 0;
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .projectTitle {
   margin: 0;
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .projectTags {
@@ -142,31 +142,31 @@
 
 .filterBtn {
   padding: 0.625rem 1.25rem;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .filterBtn:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: var(--bg-secondary);
+  border-color: var(--border-color-hover);
 }
 
 .filterBtn.activeFilter {
-  background: #e8e9ed;
-  border-color: #d1d5db;
-  color: #1a1a1a;
+  background: var(--bg-tertiary);
+  border-color: var(--border-color-hover);
+  color: var(--text-primary);
 }
 
 .filterDivider {
   width: 1px;
   height: 24px;
-  background: #d1d5db;
+  background: var(--border-color-hover);
   margin: 0 0.25rem;
 }
 
@@ -206,27 +206,27 @@
   right: 2rem;
   width: 56px;
   height: 56px;
-  background: white;
-  border: 2px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   transition: all 0.2s;
 }
 
 .floatingBtn svg {
   width: 24px;
   height: 24px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .floatingBtn:hover {
-  background: #f9fafb;
+  background: var(--bg-secondary);
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Modal Styles */
@@ -245,13 +245,13 @@
 }
 
 .modal {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 12px;
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .modalHeader {
@@ -259,12 +259,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modalHeader h2 {
   margin: 0;
-  color: #1a1a1a;
+  color: var(--text-primary);
   font-size: 1.5rem;
 }
 
@@ -272,7 +272,7 @@
   background: none;
   border: none;
   font-size: 2rem;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 0;
   width: 32px;
@@ -285,8 +285,8 @@
 }
 
 .closeBtn:hover {
-  background: #f3f4f6;
-  color: #1a1a1a;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .form {
@@ -300,7 +300,7 @@
 .formGroup label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #374151;
+  color: var(--text-primary);
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -310,18 +310,20 @@
 .formGroup select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.9rem;
   font-family: inherit;
   transition: border-color 0.2s;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .formGroup input:focus,
 .formGroup textarea:focus,
 .formGroup select:focus {
   outline: none;
-  border-color: #6b7280;
+  border-color: var(--accent-primary);
 }
 
 .formGroup textarea {
@@ -357,21 +359,21 @@
 }
 
 .cancelBtn {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
 }
 
 .cancelBtn:hover {
-  background: #e5e7eb;
+  background: var(--bg-secondary);
 }
 
 .submitBtn {
-  background: #1a1a1a;
+  background: var(--accent-primary);
   color: white;
 }
 
 .submitBtn:hover {
-  background: #374151;
+  background: var(--accent-hover);
 }
 
 .tagsSelector {
@@ -382,10 +384,10 @@
 
 .tagSelectorBtn {
   padding: 0.5rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background: white;
-  color: #6b7280;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
