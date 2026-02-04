@@ -4,11 +4,19 @@
   border-top: 1px solid #e5e7eb;
 }
 
+:root[data-theme="dark"] .commentsSection {
+  border-top-color: #374151;
+}
+
 .commentsTitle {
   font-size: 0.9rem;
   font-weight: 600;
   color: #374151;
   margin-bottom: 1rem;
+}
+
+:root[data-theme="dark"] .commentsTitle {
+  color: #d1d5db;
 }
 
 .commentsList {
@@ -25,6 +33,11 @@
   padding: 0.75rem;
   border-radius: 6px;
   border: 1px solid #e5e7eb;
+}
+
+:root[data-theme="dark"] .commentItem {
+  background: #374151;
+  border-color: #4b5563;
 }
 
 .commentHeader {
@@ -46,6 +59,10 @@
   color: #1f2937;
 }
 
+:root[data-theme="dark"] .username {
+  color: #f9fafb;
+}
+
 .commentDate {
   font-size: 0.75rem;
   color: #9ca3af;
@@ -58,6 +75,10 @@
   line-height: 1.5;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+:root[data-theme="dark"] .commentText {
+  color: #d1d5db;
 }
 
 .commentActions {
@@ -109,9 +130,19 @@
   min-height: 60px;
 }
 
+:root[data-theme="dark"] .editTextarea {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
 .editTextarea:focus {
   outline: none;
   border-color: #4338ca;
+}
+
+:root[data-theme="dark"] .editTextarea:focus {
+  border-color: #6366f1;
 }
 
 .editActions {
@@ -138,6 +169,14 @@
   background: #3730a3;
 }
 
+:root[data-theme="dark"] .saveBtn {
+  background: #6366f1;
+}
+
+:root[data-theme="dark"] .saveBtn:hover {
+  background: #4f46e5;
+}
+
 .cancelBtn {
   background: #e5e7eb;
   color: #374151;
@@ -145,6 +184,15 @@
 
 .cancelBtn:hover {
   background: #d1d5db;
+}
+
+:root[data-theme="dark"] .cancelBtn {
+  background: #374151;
+  color: #d1d5db;
+}
+
+:root[data-theme="dark"] .cancelBtn:hover {
+  background: #4b5563;
 }
 
 .noComments {
@@ -173,9 +221,19 @@
   transition: border-color 0.2s;
 }
 
+:root[data-theme="dark"] .commentInput {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
 .commentInput:focus {
   outline: none;
   border-color: #4338ca;
+}
+
+:root[data-theme="dark"] .commentInput:focus {
+  border-color: #6366f1;
 }
 
 .addBtn {
@@ -195,6 +253,14 @@
   background: #3730a3;
 }
 
+:root[data-theme="dark"] .addBtn {
+  background: #6366f1;
+}
+
+:root[data-theme="dark"] .addBtn:hover {
+  background: #4f46e5;
+}
+
 /* Scrollbar styling */
 .commentsList::-webkit-scrollbar {
   width: 6px;
@@ -205,11 +271,23 @@
   border-radius: 3px;
 }
 
+:root[data-theme="dark"] .commentsList::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
 .commentsList::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 3px;
 }
 
+:root[data-theme="dark"] .commentsList::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
 .commentsList::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+:root[data-theme="dark"] .commentsList::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }

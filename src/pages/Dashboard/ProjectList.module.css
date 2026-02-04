@@ -141,3 +141,65 @@
 .viewBtn:hover {
   background: #374151;
 }
+
+/* Dark mode styles */
+body.dark-mode .loading {
+  color: #9ca3af;
+}
+
+body.dark-mode .header h1 {
+  color: #f9fafb;
+}
+
+body.dark-mode .header p {
+  color: #9ca3af;
+}
+
+body.dark-mode .empty {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+body.dark-mode .empty p {
+  color: #9ca3af;
+}
+
+body.dark-mode .projectCard {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+body.dark-mode .projectCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .cardHeader h3 {
+  color: #f9fafb;
+}
+
+body.dark-mode .deleteBtn {
+  color: #6b7280;
+}
+
+body.dark-mode .deleteBtn:hover {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+body.dark-mode .description {
+  color: #9ca3af;
+}
+
+body.dark-mode .tag {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
+body.dark-mode .viewBtn {
+  background: #4b5563;
+  color: #f9fafb;
+}
+
+body.dark-mode .viewBtn:hover {
+  background: #6b7280;
+}

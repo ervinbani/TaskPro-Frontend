@@ -22,6 +22,10 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
+:root[data-theme="dark"] .modal {
+  background: #1f2937;
+}
+
 .modalHeader {
   display: flex;
   justify-content: space-between;
@@ -30,10 +34,18 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
+:root[data-theme="dark"] .modalHeader {
+  border-bottom-color: #374151;
+}
+
 .modalHeader h2 {
   margin: 0;
   color: #1a1a1a;
   font-size: 1.5rem;
+}
+
+:root[data-theme="dark"] .modalHeader h2 {
+  color: #f9fafb;
 }
 
 .closeBtn {
@@ -57,6 +69,15 @@
   color: #1a1a1a;
 }
 
+:root[data-theme="dark"] .closeBtn {
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .closeBtn:hover {
+  background: #374151;
+  color: #f9fafb;
+}
+
 .form {
   padding: 1.5rem;
 }
@@ -73,6 +94,10 @@
   font-size: 0.9rem;
 }
 
+:root[data-theme="dark"] .formGroup label {
+  color: #f9fafb;
+}
+
 .formGroup input,
 .formGroup textarea {
   width: 100%;
@@ -84,10 +109,22 @@
   transition: border-color 0.2s;
 }
 
+:root[data-theme="dark"] .formGroup input,
+:root[data-theme="dark"] .formGroup textarea {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
   border-color: #6b7280;
+}
+
+:root[data-theme="dark"] .formGroup input:focus,
+:root[data-theme="dark"] .formGroup textarea:focus {
+  border-color: #6366f1;
 }
 
 .formGroup textarea {
@@ -113,6 +150,11 @@
   font-weight: 500;
 }
 
+:root[data-theme="dark"] .tag {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
 .tagRemove {
   background: none;
   border: none;
@@ -130,8 +172,16 @@
   line-height: 1;
 }
 
+:root[data-theme="dark"] .tagRemove {
+  color: #c7d2fe;
+}
+
 .tagRemove:hover {
   background: rgba(67, 56, 202, 0.2);
+}
+
+:root[data-theme="dark"] .tagRemove:hover {
+  background: rgba(199, 210, 254, 0.2);
 }
 
 .modalActions {
@@ -161,6 +211,15 @@
   background: #e5e7eb;
 }
 
+:root[data-theme="dark"] .cancelBtn {
+  background: #374151;
+  color: #d1d5db;
+}
+
+:root[data-theme="dark"] .cancelBtn:hover {
+  background: #4b5563;
+}
+
 .submitBtn {
   background: #1a1a1a;
   color: white;
@@ -168,4 +227,12 @@
 
 .submitBtn:hover {
   background: #374151;
+}
+
+:root[data-theme="dark"] .submitBtn {
+  background: #6366f1;
+}
+
+:root[data-theme="dark"] .submitBtn:hover {
+  background: #4f46e5;
 }

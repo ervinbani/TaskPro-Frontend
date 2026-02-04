@@ -17,20 +17,20 @@ const Dashboard = () => {
   });
   const [tagInput, setTagInput] = useState("");
 
-  // Carica i progetti
-  useEffect(() => {
-    loadProjects();
-  }, []);
-
   const loadProjects = async () => {
     try {
       const data = await projectService.getAllProjects();
       setProjects(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to load projects");
       console.error(error);
     }
   };
+
+  // Carica i progetti
+  useEffect(() => {
+    loadProjects();
+  }, []);
 
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,8 +47,11 @@ const Dashboard = () => {
       setNewProject({ name: "", description: "", tags: [] });
       setTagInput("");
       toast.success("Project created successfully!");
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to create project");
+    } catch (error: unknown) {
+      const message = error instanceof Error && 'response' in error 
+        ? (error as any).response?.data?.message 
+        : "Failed to create project";
+      toast.error(message);
     }
   };
 

@@ -6,12 +6,20 @@
   padding: 1rem;
 }
 
+:root[data-theme="dark"] .column {
+  background: #1f2937;
+}
+
 .columnTitle {
   margin: 0 0 1rem 0;
   font-size: 1rem;
   font-weight: 600;
   color: #4b5563;
   padding: 0 0.5rem;
+}
+
+:root[data-theme="dark"] .columnTitle {
+  color: #d1d5db;
 }
 
 .taskList {
@@ -44,4 +52,15 @@
   background: white;
   border-color: #9ca3af;
   color: #6b7280;
+}
+
+:root[data-theme="dark"] .addTaskBtn {
+  border-color: #4b5563;
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .addTaskBtn:hover {
+  background: #374151;
+  border-color: #6b7280;
+  color: #9ca3af;
 }

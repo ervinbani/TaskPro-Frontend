@@ -4,6 +4,10 @@
   background: #ffffff;
 }
 
+:root[data-theme="dark"] .layout {
+  background: #0f0f0f;
+}
+
 .hamburger {
   display: none;
   position: fixed;
@@ -23,6 +27,10 @@
   transition: all 0.2s;
 }
 
+:root[data-theme="dark"] .hamburger {
+  background: #374151;
+}
+
 .hamburger svg {
   width: 24px;
   height: 24px;
@@ -31,6 +39,10 @@
 .hamburger:hover {
   background: #374151;
   transform: scale(1.05);
+}
+
+:root[data-theme="dark"] .hamburger:hover {
+  background: #4b5563;
 }
 
 .overlay {
@@ -48,6 +60,10 @@
   flex: 1;
   margin-left: 240px;
   background: #fafbfc;
+}
+
+:root[data-theme="dark"] .content {
+  background: #111111;
 }
 
 @media (max-width: 768px) {
@@ -87,6 +103,10 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
+:root[data-theme="dark"] .modal {
+  background: #1f2937;
+}
+
 .modalHeader {
   display: flex;
   justify-content: space-between;
@@ -95,10 +115,18 @@
   border-bottom: 1px solid #e2e8f0;
 }
 
+:root[data-theme="dark"] .modalHeader {
+  border-bottom-color: #374151;
+}
+
 .modalHeader h2 {
   margin: 0;
   color: #2d3748;
   font-size: 1.5rem;
+}
+
+:root[data-theme="dark"] .modalHeader h2 {
+  color: #f9fafb;
 }
 
 .closeBtn {
@@ -122,6 +150,15 @@
   color: #2d3748;
 }
 
+:root[data-theme="dark"] .closeBtn {
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .closeBtn:hover {
+  background: #374151;
+  color: #f9fafb;
+}
+
 .form {
   padding: 1.5rem;
 }
@@ -138,6 +175,10 @@
   font-size: 0.95rem;
 }
 
+:root[data-theme="dark"] .formGroup label {
+  color: #f9fafb;
+}
+
 .formGroup input,
 .formGroup textarea {
   width: 100%;
@@ -149,11 +190,24 @@
   transition: border-color 0.2s;
 }
 
+:root[data-theme="dark"] .formGroup input,
+:root[data-theme="dark"] .formGroup textarea {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
   border-color: #4299e1;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+:root[data-theme="dark"] .formGroup input:focus,
+:root[data-theme="dark"] .formGroup textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .formGroup textarea {
@@ -179,6 +233,11 @@
   font-weight: 500;
 }
 
+:root[data-theme="dark"] .tag {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
 .tagRemove {
   background: none;
   border: none;
@@ -196,8 +255,16 @@
   line-height: 1;
 }
 
+:root[data-theme="dark"] .tagRemove {
+  color: #c7d2fe;
+}
+
 .tagRemove:hover {
   background: rgba(67, 56, 202, 0.2);
+}
+
+:root[data-theme="dark"] .tagRemove:hover {
+  background: rgba(199, 210, 254, 0.2);
 }
 
 .modalActions {
@@ -227,6 +294,15 @@
   background: #e2e8f0;
 }
 
+:root[data-theme="dark"] .cancelBtn {
+  background: #374151;
+  color: #d1d5db;
+}
+
+:root[data-theme="dark"] .cancelBtn:hover {
+  background: #4b5563;
+}
+
 .submitBtn {
   background: #4299e1;
   color: white;
@@ -234,4 +310,12 @@
 
 .submitBtn:hover {
   background: #3182ce;
+}
+
+:root[data-theme="dark"] .submitBtn {
+  background: #6366f1;
+}
+
+:root[data-theme="dark"] .submitBtn:hover {
+  background: #4f46e5;
 }
