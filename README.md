@@ -1,75 +1,158 @@
-# React + TypeScript + Vite
+# TaskPro - Project Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-featured project management application built with React, TypeScript, and Vite. TaskPro provides an intuitive interface for managing projects, tasks, and team collaboration.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 **User Authentication** - Secure login and registration system
+- 📊 **Dashboard** - Overview of all projects and tasks
+- 📁 **Project Management** - Create, edit, and manage multiple projects
+- ✅ **Task Management** - Organize tasks with drag-and-drop functionality
+- 👥 **Collaboration** - Add collaborators and manage project teams
+- 💬 **Task Comments** - Communication and discussion on tasks
+- 👤 **User Profiles** - Manage user settings and change passwords
+- 🎨 **Theme Support** - Light/dark mode toggle
+- 🔒 **Protected Routes** - Secure access control for authenticated users
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **React 19.2** - Modern UI library
+- **TypeScript 5.9** - Type-safe JavaScript
+- **Vite 7.2** - Fast build tool and dev server
+- **React Router 7.13** - Client-side routing
+- **Axios** - HTTP client for API requests
+- **React Icons** - Icon library
+- **Font Awesome** - Additional icon support
+- **React Toastify** - Toast notifications
+- **CSS Modules** - Scoped component styling
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+src/
+├── components/        # Reusable UI components
+│   ├── common/       # Shared components (modals, protected routes)
+│   ├── layout/       # Layout components (sidebar)
+│   ├── projects/     # Project-related components
+│   └── tasks/        # Task-related components
+├── contexts/         # React context providers
+│   ├── AuthContext   # Authentication state management
+│   └── ThemeContext  # Theme state management
+├── hooks/            # Custom React hooks
+├── pages/            # Page components
+│   ├── Auth/         # Login and registration
+│   ├── Dashboard/    # Dashboard, home, and project list
+│   └── ProjectDetail/# Project detail view
+├── services/         # API service layer
+│   ├── api.ts        # Base API configuration
+│   ├── authService   # Authentication API calls
+│   ├── projectService# Project API calls
+│   └── taskService   # Task API calls
+├── types/            # TypeScript type definitions
+└── utils/            # Utility functions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd TaskPro-Frontend
 ```
 
-![alt text](image.png)
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Configure environment variables:
+   Create a `.env` file in the root directory and add your API base URL:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080/api
+```
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint for code quality checks
+
+## Key Components
+
+### Authentication
+
+- Login and registration with form validation
+- JWT token-based authentication
+- Persistent session management
+
+### Project Management
+
+- Create and edit projects
+- Manage project collaborators
+- View project details and statistics
+
+### Task Management
+
+- Create, edit, and delete tasks
+- Task status tracking (To Do, In Progress, Done)
+- Task comments and discussions
+- Task assignment to team members
+
+### UI/UX Features
+
+- Responsive design for all screen sizes
+- Modal-based forms for better UX
+- Toast notifications for user feedback
+- Theme switching (light/dark mode)
+- Protected routes for authenticated pages
+
+## Development
+
+This project uses:
+
+- **ESLint** for code linting
+- **TypeScript** for type checking
+- **CSS Modules** for component-scoped styling
+- **SWC** for fast refresh during development
+
+## Building for Production
+
+```bash
+npm run build
+```
+
+The production-ready files will be generated in the `dist` directory.
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## License
+
+This project is part of the PerScholas Course Projects.
+
+---
+
+Built with ❤️ using React + TypeScript + Vite
