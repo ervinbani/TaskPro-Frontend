@@ -66,7 +66,9 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
         </div>
       )}
 
-      {(task.comments && task.comments.length > 0) || task.priority || task.dueDate ? (
+      {(task.comments && task.comments.length > 0) ||
+      task.priority ||
+      task.dueDate ? (
         <div className={styles.cardFooter}>
           {task.comments && task.comments.length > 0 && (
             <div className={styles.commentsIndicator}>

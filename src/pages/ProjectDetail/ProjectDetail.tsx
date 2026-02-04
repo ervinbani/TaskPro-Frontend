@@ -486,7 +486,9 @@ const ProjectDetail = () => {
                   {taskForm.dueDate && (
                     <button
                       type="button"
-                      onClick={() => setTaskForm({ ...taskForm, dueDate: null })}
+                      onClick={() =>
+                        setTaskForm({ ...taskForm, dueDate: null })
+                      }
                       className={styles.removeDateBtn}
                       title="Remove due date"
                     >
