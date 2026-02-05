@@ -84,7 +84,7 @@ const Dashboard = () => {
         onClick={() => setSidebarOpen(true)}
         aria-label="Open menu"
       >
-        <svg viewBox="0 0 24 24" fill="currentColor">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
         </svg>
       </button>
@@ -111,12 +111,19 @@ const Dashboard = () => {
           className={styles.modalOverlay}
           onClick={() => setShowModal(false)}
         >
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+          <div 
+            className={styles.modal} 
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="create-project-title"
+          >
             <div className={styles.modalHeader}>
-              <h2>Create New Project</h2>
+              <h2 id="create-project-title">Create New Project</h2>
               <button
                 onClick={() => setShowModal(false)}
                 className={styles.closeBtn}
+                aria-label="Close create project modal"
               >
                 ×
               </button>

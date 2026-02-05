@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +31,18 @@ const UserProfileModal = ({
   });
   const [loading, setLoading] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !showPasswordModal) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose, showPasswordModal]);
 
   const handleDeleteAccount = async () => {
     const confirmed = window.confirm(
@@ -146,10 +158,16 @@ const UserProfileModal = ({
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div 
+        className={styles.modal} 
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-profile-title"
+      >
         <div className={styles.modalHeader}>
-          <h2>User Profile</h2>
-          <button onClick={onClose} className={styles.closeBtn}>
+          <h2 id="user-profile-title">User Profile</h2>
+          <button onClick={onClose} className={styles.closeBtn} aria-label="Close profile modal">
             ×
           </button>
         </div>

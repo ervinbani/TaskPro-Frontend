@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +20,18 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,10 +87,16 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div 
+        className={styles.modal} 
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="change-password-title"
+      >
         <div className={styles.modalHeader}>
-          <h2>Change Password</h2>
-          <button onClick={onClose} className={styles.closeBtn}>
+          <h2 id="change-password-title">Change Password</h2>
+          <button onClick={onClose} className={styles.closeBtn} aria-label="Close password modal">
             ×
           </button>
         </div>
