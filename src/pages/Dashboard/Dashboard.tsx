@@ -51,7 +51,8 @@ const Dashboard = () => {
     } catch (error: unknown) {
       const message =
         error instanceof Error && "response" in error
-          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
           : "Failed to create project";
       toast.error(message);
     }

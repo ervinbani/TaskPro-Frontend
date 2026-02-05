@@ -55,11 +55,14 @@ const UserProfileModal = ({
       navigate("/login");
     } catch (error: unknown) {
       const errorMessage =
-        error instanceof Error && 'response' in error && 
-        typeof error.response === 'object' && error.response !== null &&
-        'data' in error.response &&
-        typeof error.response.data === 'object' && error.response.data !== null &&
-        'message' in error.response.data
+        error instanceof Error &&
+        "response" in error &&
+        typeof error.response === "object" &&
+        error.response !== null &&
+        "data" in error.response &&
+        typeof error.response.data === "object" &&
+        error.response.data !== null &&
+        "message" in error.response.data
           ? String(error.response.data.message)
           : "Failed to delete account";
       toast.error(errorMessage);
@@ -108,11 +111,26 @@ const UserProfileModal = ({
       toast.success("Profile updated successfully!");
       onClose();
     } catch (error: unknown) {
-      const isAxiosError = error instanceof Error && 'response' in error;
-      const response = isAxiosError && typeof error.response === 'object' ? error.response : null;
-      const errorData = response && response !== null && 'data' in response && typeof response.data === 'object' ? response.data : null;
-      const status = response && response !== null && 'status' in response ? response.status : null;
-      const errorMessage = (errorData && errorData !== null && 'message' in errorData ? String(errorData.message) : null) || (error instanceof Error ? error.message : null);
+      const isAxiosError = error instanceof Error && "response" in error;
+      const response =
+        isAxiosError && typeof error.response === "object"
+          ? error.response
+          : null;
+      const errorData =
+        response &&
+        response !== null &&
+        "data" in response &&
+        typeof response.data === "object"
+          ? response.data
+          : null;
+      const status =
+        response && response !== null && "status" in response
+          ? response.status
+          : null;
+      const errorMessage =
+        (errorData && errorData !== null && "message" in errorData
+          ? String(errorData.message)
+          : null) || (error instanceof Error ? error.message : null);
 
       if (status === 400) {
         toast.error(errorMessage || "Invalid data provided");
