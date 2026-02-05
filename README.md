@@ -101,6 +101,7 @@ VITE_API_BASE_URL=http://localhost:8080/api
 ```
 
 **Important Notes:**
+
 - All environment variables must be prefixed with `VITE_` to be exposed to the client-side code
 - The `.env` file should never be committed to version control (already in `.gitignore`)
 - For production, configure these variables in your hosting platform (Vercel, Netlify, etc.)
@@ -115,14 +116,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
-  plugins: [react()],  // Uses SWC for fast refresh
+  plugins: [react()], // Uses SWC for fast refresh
   server: {
-    port: 3001,         // Development server port
+    port: 3001, // Development server port
   },
 });
 ```
 
 **Configuration Options:**
+
 - `plugins: [react()]` - Enables React with SWC compiler for faster builds and hot module replacement (HMR)
 - `server.port: 3001` - Sets the development server to run on port 3001 instead of the default 5173
 - You can customize additional options like `server.host`, `server.open`, `build.outDir`, etc.
@@ -134,12 +136,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3001,
-    open: true,           // Automatically open browser on server start
-    host: true,           // Expose to network
+    open: true, // Automatically open browser on server start
+    host: true, // Expose to network
   },
   build: {
-    outDir: 'dist',       // Output directory for production build
-    sourcemap: false,     // Disable source maps in production
+    outDir: "dist", // Output directory for production build
+    sourcemap: false, // Disable source maps in production
   },
 });
 ```
