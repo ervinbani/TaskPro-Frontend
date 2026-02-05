@@ -100,28 +100,6 @@ const Sidebar = ({
             ))}
           </div>
         </div>
-
-        <NavLink
-          to="/calendar"
-          className={styles.navItem}
-          aria-label="Calendar"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" />
-          </svg>
-          <span>Calendar</span>
-        </NavLink>
-
-        <NavLink
-          to="/messages"
-          className={styles.navItem}
-          aria-label="Messages"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
-          </svg>
-          <span>Messages</span>
-        </NavLink>
       </nav>
 
       <div className={styles.sidebarFooter}>
