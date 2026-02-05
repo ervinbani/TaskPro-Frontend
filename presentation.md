@@ -82,15 +82,22 @@ TaskPro is a modern project management application based on the **Kanban** metho
 - JWT token-based authentication
 - Protected routes with ProtectedRoute component
 - Persistent session management (localStorage)
-- User profile with password change
+- User profile with password change and automatic logout
+- **Account deletion** - Complete account removal with automatic cleanup
+  - Deletes all owned projects
+  - Removes user from all collaborations
+  - Warning dialog before deletion
+  - Automatic logout and redirect to login
 
 ### 📊 Project Management
 
 - Create projects with name, description, and tags
-- Edit and delete projects
+- **Edit and delete projects** with confirmation dialogs
+- **Project deletion** - Visible delete button with warning
 - Manage collaborators
 - Project view with aggregated statistics
 - Filtering by custom tags
+- Automatic sidebar refresh after deletion
 
 ### ✅ Task Management
 
@@ -301,6 +308,9 @@ VITE_API_BASE_URL=http://localhost:8080/api
 ### Roadmap
 
 - ✅ **Due Dates** - Task deadlines with calendar view (COMPLETED)
+- ✅ **Project Deletion** - Delete projects with automatic cleanup (COMPLETED)
+- ✅ **Account Management** - Full account deletion with data cleanup (COMPLETED)
+- ✅ **Password Security** - Password change with automatic logout (COMPLETED)
 - 📅 **Calendar View** - Aggregate calendar for all task deadlines
 - 📧 **Email Notifications** - Notifications on updates and approaching deadlines
 - 📊 **Analytics Dashboard** - Metrics and insights
@@ -322,6 +332,9 @@ VITE_API_BASE_URL=http://localhost:8080/api
 - ✅ Professional dark mode implementation
 - ✅ Scalable and maintainable architecture
 - ✅ Modern React best practices
+- ✅ Secure user authentication and session management
+- ✅ Data cleanup and cascade deletion patterns
+- ✅ User experience for destructive actions (confirmations, warnings)
 
 ### Why TaskPro is Special
 
@@ -353,7 +366,9 @@ A complete, modern, and professional project management application that demonst
 5. **Move Tasks** → Drag & drop between columns
 6. **Comments** → Collaborate with team
 7. **Complete Tasks** → Track progress with deadlines
-8. **Dark Mode** → Toggle theme
+8. **Profile Management** → Update profile, change password (auto-logout)
+9. **Project/Account Deletion** → Remove with confirmation and automatic cleanup
+10. **Dark Mode** → Toggle theme
 
 ### Useful Links
 

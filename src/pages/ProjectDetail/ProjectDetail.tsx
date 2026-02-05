@@ -152,6 +152,15 @@ const ProjectDetail = () => {
   };
 
   const handleDeleteProject = async () => {
+    if (!project || !user) return;
+
+    // Check if user is the owner
+    const ownerId = typeof project.owner === 'string' ? project.owner : project.owner._id;
+    if (ownerId !== user._id) {
+      toast.error("You are not the owner. You cannot delete this project.");
+      return;
+    }
+
     if (
       !window.confirm(
         "Are you sure you want to delete this project? All tasks will be permanently deleted.",
@@ -174,6 +183,19 @@ const ProjectDetail = () => {
           : "Failed to delete project";
       toast.error(message);
     }
+  };
+
+  const handleEditProject = () => {
+    if (!project || !user) return;
+
+    // Check if user is the owner
+    const ownerId = typeof project.owner === 'string' ? project.owner : project.owner._id;
+    if (ownerId !== user._id) {
+      toast.error("You are not the owner. You cannot modify this project.");
+      return;
+    }
+
+    setShowEditProjectModal(true);
   };
 
   const handleDeleteTask = async (taskId: string) => {
@@ -338,7 +360,7 @@ const ProjectDetail = () => {
 
           <button
             className={styles.editProjectBtn}
-            onClick={() => setShowEditProjectModal(true)}
+            onClick={handleEditProject}
             title="Edit project"
           >
             <FontAwesomeIcon icon={faPencil} />
