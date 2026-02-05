@@ -328,7 +328,7 @@ const ProjectDetail = () => {
           >
             <FontAwesomeIcon icon={faUserGroup} />
           </button>
-          <button 
+          <button
             className={styles.iconBtn}
             aria-label="Notifications"
             title="Notifications"

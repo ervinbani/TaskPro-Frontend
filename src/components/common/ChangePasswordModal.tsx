@@ -60,22 +60,36 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
         newPassword: formData.newPassword,
       });
 
-      toast.success("Password updated successfully! Please login with your new password.");
+      toast.success(
+        "Password updated successfully! Please login with your new password.",
+      );
       onClose();
-      
+
       // Logout automatico dopo cambio password
       setTimeout(() => {
         logout();
         navigate("/login");
       }, 1500);
     } catch (error: unknown) {
-      const errorMessage = (error as { response?: { data?: { message?: string } }; message?: string }).response?.data?.message || (error as { message?: string }).message;
+      const errorMessage =
+        (
+          error as {
+            response?: { data?: { message?: string } };
+            message?: string;
+          }
+        ).response?.data?.message || (error as { message?: string }).message;
 
-      if ((error as { response?: { status?: number } }).response?.status === 401) {
+      if (
+        (error as { response?: { status?: number } }).response?.status === 401
+      ) {
         toast.error("Current password is incorrect");
-      } else if ((error as { response?: { status?: number } }).response?.status === 400) {
+      } else if (
+        (error as { response?: { status?: number } }).response?.status === 400
+      ) {
         toast.error(errorMessage || "Invalid password provided");
-      } else if ((error as { response?: { status?: number } }).response?.status === 404) {
+      } else if (
+        (error as { response?: { status?: number } }).response?.status === 404
+      ) {
         toast.error("User not found");
       } else {
         toast.error(errorMessage || "Failed to update password");
@@ -87,8 +101,8 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div 
-        className={styles.modal} 
+      <div
+        className={styles.modal}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -96,7 +110,11 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
       >
         <div className={styles.modalHeader}>
           <h2 id="change-password-title">Change Password</h2>
-          <button onClick={onClose} className={styles.closeBtn} aria-label="Close password modal">
+          <button
+            onClick={onClose}
+            className={styles.closeBtn}
+            aria-label="Close password modal"
+          >
             ×
           </button>
         </div>

@@ -111,8 +111,8 @@ const Dashboard = () => {
           className={styles.modalOverlay}
           onClick={() => setShowModal(false)}
         >
-          <div 
-            className={styles.modal} 
+          <div
+            className={styles.modal}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
