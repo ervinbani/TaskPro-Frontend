@@ -155,7 +155,8 @@ const ProjectDetail = () => {
     if (!project || !user) return;
 
     // Check if user is the owner
-    const ownerId = typeof project.owner === 'string' ? project.owner : project.owner._id;
+    const ownerId =
+      typeof project.owner === "string" ? project.owner : project.owner._id;
     if (ownerId !== user._id) {
       toast.error("You are not the owner. You cannot delete this project.");
       return;
@@ -189,7 +190,8 @@ const ProjectDetail = () => {
     if (!project || !user) return;
 
     // Check if user is the owner
-    const ownerId = typeof project.owner === 'string' ? project.owner : project.owner._id;
+    const ownerId =
+      typeof project.owner === "string" ? project.owner : project.owner._id;
     if (ownerId !== user._id) {
       toast.error("You are not the owner. You cannot modify this project.");
       return;
