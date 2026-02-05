@@ -151,7 +151,9 @@
   padding: 1rem 0;
   border-top: 1px solid var(--border-color);
   display: flex;
+  gap: 0.75rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .changePasswordBtn {
@@ -177,6 +179,49 @@
 
 .changePasswordBtn svg {
   font-size: 0.9rem;
+}
+
+.deleteAccountBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteAccountBtn:hover:not(:disabled) {
+  background: #dc2626;
+  color: white;
+  border-color: #dc2626;
+  transform: scale(1.02);
+}
+
+.deleteAccountBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.deleteAccountBtn svg {
+  font-size: 0.9rem;
+}
+
+:root[data-theme="dark"] .deleteAccountBtn {
+  background: #7f1d1d;
+  color: #fca5a5;
+  border-color: #991b1b;
+}
+
+:root[data-theme="dark"] .deleteAccountBtn:hover:not(:disabled) {
+  background: #dc2626;
+  color: white;
+  border-color: #dc2626;
 }
 
 .modalActions {

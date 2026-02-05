@@ -18,23 +18,18 @@ const Dashboard = () => {
   });
   const [tagInput, setTagInput] = useState("");
 
-  const loadProjects = async () => {
-    try {
-      const data = await projectService.getAllProjects();
-      setProjects(data);
-    } catch (error: unknown) {
-      toast.error("Failed to load projects");
-      console.error(error);
-    }
-  };
-
-  // Carica i progetti
+  // Carica i progetti all'avvio e quando la location cambia
   useEffect(() => {
-    loadProjects();
-  }, []);
+    const loadProjects = async () => {
+      try {
+        const data = await projectService.getAllProjects();
+        setProjects(data);
+      } catch (error: unknown) {
+        toast.error("Failed to load projects");
+        console.error(error);
+      }
+    };
 
-  // Ricarica i progetti quando la location cambia (per aggiornare dopo una cancellazione)
-  useEffect(() => {
     loadProjects();
   }, [location.pathname]);
 
@@ -56,7 +51,7 @@ const Dashboard = () => {
     } catch (error: unknown) {
       const message =
         error instanceof Error && "response" in error
-          ? (error as any).response?.data?.message
+          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
           : "Failed to create project";
       toast.error(message);
     }

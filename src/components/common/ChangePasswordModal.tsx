@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import * as authService from "../../services/authService";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./UserProfileModal.module.css";
 
 interface ChangePasswordModalProps {
@@ -10,6 +12,8 @@ interface ChangePasswordModalProps {
 }
 
 const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -44,16 +48,22 @@ const ChangePasswordModal = ({ onClose }: ChangePasswordModalProps) => {
         newPassword: formData.newPassword,
       });
 
-      toast.success("Password updated successfully!");
+      toast.success("Password updated successfully! Please login with your new password.");
       onClose();
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message;
+      
+      // Logout automatico dopo cambio password
+      setTimeout(() => {
+        logout();
+        navigate("/login");
+      }, 1500);
+    } catch (error: unknown) {
+      const errorMessage = (error as { response?: { data?: { message?: string } }; message?: string }).response?.data?.message || (error as { message?: string }).message;
 
-      if (error.response?.status === 401) {
+      if ((error as { response?: { status?: number } }).response?.status === 401) {
         toast.error("Current password is incorrect");
-      } else if (error.response?.status === 400) {
+      } else if ((error as { response?: { status?: number } }).response?.status === 400) {
         toast.error(errorMessage || "Invalid password provided");
-      } else if (error.response?.status === 404) {
+      } else if ((error as { response?: { status?: number } }).response?.status === 404) {
         toast.error("User not found");
       } else {
         toast.error(errorMessage || "Failed to update password");

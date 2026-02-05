@@ -1,7 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faEnvelope,
+  faKey,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import type { User } from "../../types/user";
 import * as authService from "../../services/authService";
 import ChangePasswordModal from "./ChangePasswordModal";
@@ -18,12 +24,49 @@ const UserProfileModal = ({
   onClose,
   onUpdate,
 }: UserProfileModalProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
   });
   const [loading, setLoading] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      "⚠️ WARNING: Are you sure you want to delete your account?\n\n" +
+        "This action will permanently delete:\n" +
+        "• Your account and profile\n" +
+        "• All projects you own\n" +
+        "• All your tasks and comments\n" +
+        "• You will be removed from all shared projects\n\n" +
+        "This action cannot be undone!",
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setLoading(true);
+      await authService.deleteAccount();
+      toast.success(
+        "Account deleted successfully. All your projects and tasks have been removed.",
+      );
+      onClose();
+      navigate("/login");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error && 'response' in error && 
+        typeof error.response === 'object' && error.response !== null &&
+        'data' in error.response &&
+        typeof error.response.data === 'object' && error.response.data !== null &&
+        'message' in error.response.data
+          ? String(error.response.data.message)
+          : "Failed to delete account";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,12 +107,16 @@ const UserProfileModal = ({
       onUpdate(updatedUser);
       toast.success("Profile updated successfully!");
       onClose();
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message;
+    } catch (error: unknown) {
+      const isAxiosError = error instanceof Error && 'response' in error;
+      const response = isAxiosError && typeof error.response === 'object' ? error.response : null;
+      const errorData = response && response !== null && 'data' in response && typeof response.data === 'object' ? response.data : null;
+      const status = response && response !== null && 'status' in response ? response.status : null;
+      const errorMessage = (errorData && errorData !== null && 'message' in errorData ? String(errorData.message) : null) || (error instanceof Error ? error.message : null);
 
-      if (error.response?.status === 400) {
+      if (status === 400) {
         toast.error(errorMessage || "Invalid data provided");
-      } else if (error.response?.status === 404) {
+      } else if (status === 404) {
         toast.error("User not found");
       } else {
         toast.error(errorMessage || "Failed to update profile");
@@ -137,6 +184,15 @@ const UserProfileModal = ({
             >
               <FontAwesomeIcon icon={faKey} />
               Change Password
+            </button>
+            <button
+              type="button"
+              onClick={handleDeleteAccount}
+              className={styles.deleteAccountBtn}
+              disabled={loading}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+              Delete Account
             </button>
           </div>
 

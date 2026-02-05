@@ -6,13 +6,14 @@ A modern, full-featured project management application built with React, TypeScr
 
 - 🔐 **User Authentication** - Secure login and registration system
 - 📊 **Dashboard** - Overview of all projects and tasks
-- 📁 **Project Management** - Create, edit, and manage multiple projects
-- ✅ **Task Management** - Organize tasks with drag-and-drop functionality
+- 📁 **Project Management** - Create, edit, delete, and manage multiple projects
+- ✅ **Task Management** - Organize tasks with priority levels, progress tracking, and optional due dates
 - 👥 **Collaboration** - Add collaborators and manage project teams
 - 💬 **Task Comments** - Communication and discussion on tasks
-- 👤 **User Profiles** - Manage user settings and change passwords
-- 🎨 **Theme Support** - Light/dark mode toggle
+- 👤 **User Profiles** - Manage user settings, change passwords, and delete account
+- 🎨 **Theme Support** - Light/dark mode toggle with persistence
 - 🔒 **Protected Routes** - Secure access control for authenticated users
+- 🗑️ **Account Deletion** - Complete account removal with automatic cleanup of owned projects and collaborations
 
 ## Tech Stack
 
@@ -160,19 +161,27 @@ export default defineConfig({
 - Login and registration with form validation
 - JWT token-based authentication
 - Persistent session management
+- Profile management with username and email updates
+- Password change functionality
+- Account deletion with automatic cleanup of owned projects and removal from collaborations
 
 ### Project Management
 
-- Create and edit projects
+- Create, edit, and delete projects
 - Manage project collaborators
 - View project details and statistics
+- Automatic removal from sidebar after deletion
 
 ### Task Management
 
 - Create, edit, and delete tasks
 - Task status tracking (To Do, In Progress, Done)
+- Priority levels (High, Medium, Low)
+- Optional due dates with visual indicators
+- Progress tracking with percentage
 - Task comments and discussions
 - Task assignment to team members
+- Custom tags for categorization
 
 ### UI/UX Features
 

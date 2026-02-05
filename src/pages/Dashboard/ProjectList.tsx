@@ -19,7 +19,7 @@ const ProjectList = () => {
       setLoading(true);
       const data = await projectService.getAllProjects();
       setProjects(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to load projects");
       console.error(error);
     } finally {
@@ -36,8 +36,11 @@ const ProjectList = () => {
       await projectService.deleteProject(id);
       setProjects(projects.filter((p) => p._id !== id));
       toast.success("Project deleted successfully!");
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to delete project");
+    } catch (error: unknown) {
+      const message = error instanceof Error && 'response' in error 
+        ? (error as { response?: { data?: { message?: string } } }).response?.data?.message 
+        : "Failed to delete project";
+      toast.error(message || "Failed to delete project");
     }
   };
 

@@ -125,3 +125,13 @@ export const updatePassword = async (data: {
 
   return response.data;
 };
+
+// Delete user account
+export const deleteAccount = async (): Promise<{ message: string }> => {
+  const response = await api.delete<{ message: string }>("/api/user/account");
+  
+  // Clear authentication data
+  clearAuth();
+  
+  return response.data;
+};
