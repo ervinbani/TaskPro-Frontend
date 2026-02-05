@@ -498,24 +498,6 @@ const ProjectDetail = () => {
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="progress">Progress: {taskForm.progress}%</label>
-                <input
-                  type="range"
-                  id="progress"
-                  min="0"
-                  max="100"
-                  step="10"
-                  value={taskForm.progress}
-                  onChange={(e) =>
-                    setTaskForm({
-                      ...taskForm,
-                      progress: parseInt(e.target.value),
-                    })
-                  }
-                />
-              </div>
-
-              <div className={styles.formGroup}>
                 <div className={styles.dueDateHeader}>
                   <label htmlFor="dueDate">Due Date</label>
                   {taskForm.dueDate && (
