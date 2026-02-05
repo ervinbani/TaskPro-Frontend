@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserGroup,
   faBell,
   faPencil,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import type { Project } from "../../types/project";
 import type {
@@ -26,6 +27,7 @@ import styles from "./ProjectDetail.module.css";
 
 const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [project, setProject] = useState<Project | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -131,6 +133,27 @@ const ProjectDetail = () => {
           ? (error as { response?: { data?: { message?: string } } }).response
               ?.data?.message
           : "Failed to save task";
+      toast.error(message);
+    }
+  };
+
+  const handleDeleteProject = async () => {
+    if (!window.confirm("Are you sure you want to delete this project? All tasks will be permanently deleted.")) {
+      return;
+    }
+
+    if (!projectId) return;
+
+    try {
+      await projectService.deleteProject(projectId);
+      toast.success("Project deleted successfully!");
+      navigate("/dashboard");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error && "response" in error
+          ? (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : "Failed to delete project";
       toast.error(message);
     }
   };
@@ -296,6 +319,14 @@ const ProjectDetail = () => {
             title="Edit project"
           >
             <FontAwesomeIcon icon={faPencil} />
+          </button>
+
+          <button
+            className={styles.deleteProjectBtn}
+            onClick={handleDeleteProject}
+            title="Delete project"
+          >
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
       </header>

@@ -98,6 +98,7 @@ TaskPro is a modern project management application based on the **Kanban** metho
 - **Priority** - High/Medium/Low with distinctive colors
 - **Progress tracking** - Completion percentage
 - **Multiple states** - To Do, In Progress, Done
+- **Due dates** - Optional deadlines with visual calendar indicator
 - **Custom tags** - Flexible categorization
 - **Rich descriptions** - Complete details for each task
 
@@ -299,8 +300,9 @@ VITE_API_BASE_URL=http://localhost:8080/api
 
 ### Roadmap
 
-- 📅 **Calendar View** - Calendar view for deadlines
-- 📧 **Email Notifications** - Notifications on updates
+- ✅ **Due Dates** - Task deadlines with calendar view (COMPLETED)
+- 📅 **Calendar View** - Aggregate calendar for all task deadlines
+- 📧 **Email Notifications** - Notifications on updates and approaching deadlines
 - 📊 **Analytics Dashboard** - Metrics and insights
 - 🔔 **Real-time Updates** - WebSocket for live updates
 - 👥 **Team Permissions** - Granular roles and permissions
@@ -347,10 +349,10 @@ A complete, modern, and professional project management application that demonst
 1. **Login** → Secure authentication
 2. **Dashboard** → Project view with statistics
 3. **Create Project** → New project with tags
-4. **Add Tasks** → Organize activities
+4. **Add Tasks** → Organize activities with optional due dates
 5. **Move Tasks** → Drag & drop between columns
 6. **Comments** → Collaborate with team
-7. **Complete Tasks** → Track progress
+7. **Complete Tasks** → Track progress with deadlines
 8. **Dark Mode** → Toggle theme
 
 ### Useful Links

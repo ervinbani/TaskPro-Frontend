@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import type { Project } from "../../types/project";
 import * as projectService from "../../services/projectService";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import Sidebar from "../../components/layout/Sidebar";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
+  const location = useLocation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,6 +32,11 @@ const Dashboard = () => {
   useEffect(() => {
     loadProjects();
   }, []);
+
+  // Ricarica i progetti quando la location cambia (per aggiornare dopo una cancellazione)
+  useEffect(() => {
+    loadProjects();
+  }, [location.pathname]);
 
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();

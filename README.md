@@ -87,7 +87,62 @@ VITE_API_BASE_URL=http://localhost:8080/api
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The application will be available at `http://localhost:3001` (default port configured in `vite.config.ts`)
+
+## Configuration
+
+### Environment Variables
+
+TaskPro uses Vite's environment variable system. Create a `.env` file in the root directory:
+
+```env
+# Backend API URL
+VITE_API_BASE_URL=http://localhost:8080/api
+```
+
+**Important Notes:**
+- All environment variables must be prefixed with `VITE_` to be exposed to the client-side code
+- The `.env` file should never be committed to version control (already in `.gitignore`)
+- For production, configure these variables in your hosting platform (Vercel, Netlify, etc.)
+- Access environment variables in code using `import.meta.env.VITE_API_BASE_URL`
+
+### Vite Configuration
+
+The `vite.config.ts` file contains the build and development server configuration:
+
+```typescript
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+
+export default defineConfig({
+  plugins: [react()],  // Uses SWC for fast refresh
+  server: {
+    port: 3001,         // Development server port
+  },
+});
+```
+
+**Configuration Options:**
+- `plugins: [react()]` - Enables React with SWC compiler for faster builds and hot module replacement (HMR)
+- `server.port: 3001` - Sets the development server to run on port 3001 instead of the default 5173
+- You can customize additional options like `server.host`, `server.open`, `build.outDir`, etc.
+
+**Common Customizations:**
+
+```typescript
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3001,
+    open: true,           // Automatically open browser on server start
+    host: true,           // Expose to network
+  },
+  build: {
+    outDir: 'dist',       // Output directory for production build
+    sourcemap: false,     // Disable source maps in production
+  },
+});
+```
 
 ## Available Scripts
 
