@@ -1,7 +1,12 @@
 export interface Notification {
   _id: string;
   message: string;
-  type: "PROJECT_INVITE" | "TASK_CREATED" | "TASK_UPDATED" | "TASK_ASSIGNED" | "PROJECT_UPDATED";
+  type:
+    | "PROJECT_INVITE"
+    | "TASK_CREATED"
+    | "TASK_UPDATED"
+    | "TASK_ASSIGNED"
+    | "PROJECT_UPDATED";
   isRead: boolean;
   createdAt: string;
   readAt?: string;

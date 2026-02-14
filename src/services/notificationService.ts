@@ -25,7 +25,9 @@ export const getNotifications = async (
 };
 
 // Mark single notification as read
-export const markAsRead = async (notificationId: string): Promise<Notification> => {
+export const markAsRead = async (
+  notificationId: string,
+): Promise<Notification> => {
   const response = await api.put<Notification>(
     `/api/notifications/${notificationId}/read`,
   );
@@ -41,7 +43,9 @@ export const markAllAsRead = async (): Promise<number> => {
 };
 
 // Delete single notification
-export const deleteNotification = async (notificationId: string): Promise<void> => {
+export const deleteNotification = async (
+  notificationId: string,
+): Promise<void> => {
   await api.delete(`/api/notifications/${notificationId}`);
 };
 

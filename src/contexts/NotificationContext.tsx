@@ -70,26 +70,23 @@ export const NotificationProvider = ({
   }, [isAuthenticated]);
 
   // Mark single as read
-  const markAsRead = useCallback(
-    async (notificationId: string) => {
-      try {
-        await notificationService.markAsRead(notificationId);
+  const markAsRead = useCallback(async (notificationId: string) => {
+    try {
+      await notificationService.markAsRead(notificationId);
 
-        // Aggiorna lo stato locale
-        setNotifications((prev) =>
-          prev.map((n) =>
-            n._id === notificationId ? { ...n, isRead: true } : n,
-          ),
-        );
+      // Aggiorna lo stato locale
+      setNotifications((prev) =>
+        prev.map((n) =>
+          n._id === notificationId ? { ...n, isRead: true } : n,
+        ),
+      );
 
-        setUnreadCount((prev) => Math.max(0, prev - 1));
-      } catch (error) {
-        console.error("Failed to mark notification as read:", error);
-        throw error;
-      }
-    },
-    [],
-  );
+      setUnreadCount((prev) => Math.max(0, prev - 1));
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
+      throw error;
+    }
+  }, []);
 
   // Mark all as read
   const markAllAsRead = useCallback(async () => {
@@ -97,9 +94,7 @@ export const NotificationProvider = ({
       await notificationService.markAllAsRead();
 
       // Aggiorna lo stato locale
-      setNotifications((prev) =>
-        prev.map((n) => ({ ...n, isRead: true })),
-      );
+      setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
 
       setUnreadCount(0);
     } catch (error) {

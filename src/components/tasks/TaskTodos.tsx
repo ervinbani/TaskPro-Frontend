@@ -69,7 +69,9 @@ const TaskTodos = ({
       const progress = calculateProgress(updatedTodos);
       onUpdate(updatedTodos, progress);
       toast.success(
-        updatedTodo.completed ? "Todo completed! ✓" : "Todo marked as incomplete",
+        updatedTodo.completed
+          ? "Todo completed! ✓"
+          : "Todo marked as incomplete",
       );
     } catch (error) {
       console.error("Error toggling todo:", error);
@@ -183,11 +185,14 @@ const TaskTodos = ({
                   <span className={styles.todoMeta}>
                     Completed by {todo.completedBy.username}
                     {todo.completedAt &&
-                      ` on ${new Date(todo.completedAt).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}`}
+                      ` on ${new Date(todo.completedAt).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        },
+                      )}`}
                   </span>
                 )}
               </div>

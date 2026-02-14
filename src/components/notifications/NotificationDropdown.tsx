@@ -7,12 +7,8 @@ interface NotificationDropdownProps {
 }
 
 const NotificationDropdown = ({ onClose }: NotificationDropdownProps) => {
-  const {
-    notifications,
-    loading,
-    markAllAsRead,
-    clearReadNotifications,
-  } = useNotifications();
+  const { notifications, loading, markAllAsRead, clearReadNotifications } =
+    useNotifications();
 
   const handleMarkAllAsRead = async () => {
     try {

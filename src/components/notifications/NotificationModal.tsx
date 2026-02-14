@@ -247,9 +247,7 @@ const NotificationModal = ({ onClose }: NotificationModalProps) => {
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
 
-                  {!notification.isRead && (
-                    <div className={styles.unreadDot} />
-                  )}
+                  {!notification.isRead && <div className={styles.unreadDot} />}
                 </div>
               ))}
             </div>

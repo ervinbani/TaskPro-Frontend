@@ -288,7 +288,10 @@ const ProjectDetail = () => {
     });
   };
 
-  const handleUpdateTodos = (updatedTodos: Todo[], updatedProgress?: number) => {
+  const handleUpdateTodos = (
+    updatedTodos: Todo[],
+    updatedProgress?: number,
+  ) => {
     setTaskForm({
       ...taskForm,
       todos: updatedTodos,

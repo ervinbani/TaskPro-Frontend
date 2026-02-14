@@ -93,7 +93,9 @@ const NotificationItem = ({ notification, onClose }: NotificationItemProps) => {
         <p className={styles.message}>{notification.message}</p>
         <div className={styles.meta}>
           {notification.sender && (
-            <span className={styles.sender}>@{notification.sender.username}</span>
+            <span className={styles.sender}>
+              @{notification.sender.username}
+            </span>
           )}
           <span className={styles.time}>
             {getRelativeTime(notification.createdAt)}

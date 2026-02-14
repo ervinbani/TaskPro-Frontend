@@ -38,10 +38,7 @@ export const deleteTask = async (taskId: string): Promise<void> => {
 // ======= TODO OPERATIONS =======
 
 // Add todo to task
-export const addTodo = async (
-  taskId: string,
-  text: string,
-): Promise<Todo> => {
+export const addTodo = async (taskId: string, text: string): Promise<Todo> => {
   const response = await api.post<Todo>(`/api/tasks/${taskId}/todos`, {
     text,
   });
