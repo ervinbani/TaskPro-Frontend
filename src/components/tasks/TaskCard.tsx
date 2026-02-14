@@ -68,7 +68,8 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
 
       {(task.comments && task.comments.length > 0) ||
       task.priority ||
-      task.dueDate ? (
+      task.dueDate ||
+      (task.todos && task.todos.length > 0) ? (
         <div className={styles.cardFooter}>
           {task.comments && task.comments.length > 0 && (
             <div className={styles.commentsIndicator}>
@@ -76,6 +77,16 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
                 <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
               </svg>
               <span>{task.comments.length}</span>
+            </div>
+          )}
+          {task.todos && task.todos.length > 0 && (
+            <div className={styles.todosIndicator}>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z" />
+              </svg>
+              <span>
+                {task.todos.filter((t) => t.completed).length}/{task.todos.length}
+              </span>
             </div>
           )}
           {task.dueDate && (

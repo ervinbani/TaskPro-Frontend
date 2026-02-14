@@ -1,0 +1,46 @@
+.bellButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.bellButton:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.05));
+}
+
+.bellIcon {
+  font-size: 1.25rem;
+  color: var(--text-primary, #333);
+}
+
+.badge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.125rem 0.35rem;
+  border-radius: 10px;
+  min-width: 1.2rem;
+  text-align: center;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .bellIcon {
+  color: var(--text-primary, #e5e7eb);
+}
+
+[data-theme="dark"] .bellButton:hover {
+  background-color: var(--hover-bg, rgba(255, 255, 255, 0.1));
+}

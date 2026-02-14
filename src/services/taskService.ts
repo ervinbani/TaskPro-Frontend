@@ -1,5 +1,5 @@
 import api from "./api";
-import type { Task, CreateTaskDto, UpdateTaskDto } from "../types/task";
+import type { Task, CreateTaskDto, UpdateTaskDto, Todo } from "../types/task";
 
 // Get all tasks for a project
 export const getProjectTasks = async (projectId: string): Promise<Task[]> => {
@@ -33,4 +33,38 @@ export const updateTask = async (
 // Delete task
 export const deleteTask = async (taskId: string): Promise<void> => {
   await api.delete(`/api/tasks/${taskId}`);
+};
+
+// ======= TODO OPERATIONS =======
+
+// Add todo to task
+export const addTodo = async (
+  taskId: string,
+  text: string,
+): Promise<Todo> => {
+  const response = await api.post<Todo>(`/api/tasks/${taskId}/todos`, {
+    text,
+  });
+  return response.data;
+};
+
+// Update todo (text or completed status)
+export const updateTodo = async (
+  taskId: string,
+  todoId: string,
+  updates: { text?: string; completed?: boolean },
+): Promise<Todo> => {
+  const response = await api.put<Todo>(
+    `/api/tasks/${taskId}/todos/${todoId}`,
+    updates,
+  );
+  return response.data;
+};
+
+// Delete todo
+export const deleteTodo = async (
+  taskId: string,
+  todoId: string,
+): Promise<void> => {
+  await api.delete(`/api/tasks/${taskId}/todos/${todoId}`);
 };

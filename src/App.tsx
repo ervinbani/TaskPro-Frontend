@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -21,7 +22,8 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
+        <NotificationProvider>
+          <Router>
           <Routes>
             {/* Public routes */}
             <Route path="/login" element={<Login />} />
@@ -105,6 +107,7 @@ function App() {
           draggable
           pauseOnHover
         />
+        </NotificationProvider>
       </AuthProvider>
     </ThemeProvider>
   );

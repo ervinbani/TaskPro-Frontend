@@ -15,6 +15,7 @@ import type {
   TaskPriority,
   CreateTaskDto,
   TaskComment,
+  Todo,
 } from "../../types/task";
 import * as projectService from "../../services/projectService";
 import * as taskService from "../../services/taskService";
@@ -22,6 +23,7 @@ import TaskColumn from "../../components/tasks/TaskColumn";
 import ProjectEditModal from "../../components/projects/ProjectEditModal";
 import ProjectCollaborators from "../../components/projects/ProjectCollaborators";
 import TaskComments from "../../components/tasks/TaskComments";
+import TaskTodos from "../../components/tasks/TaskTodos";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./ProjectDetail.module.css";
 
@@ -48,6 +50,8 @@ const ProjectDetail = () => {
     progress: 0,
     dueDate: null,
     comments: [],
+    todos: [],
+    todoProgress: 0,
   });
 
   const loadProjectData = useCallback(async () => {
@@ -115,6 +119,8 @@ const ProjectDetail = () => {
       progress: task.progress || 0,
       dueDate: task.dueDate || null,
       comments: task.comments || [],
+      todos: task.todos || [],
+      todoProgress: task.todoProgress || 0,
     });
     setShowModal(true);
   };
@@ -229,6 +235,8 @@ const ProjectDetail = () => {
       progress: 0,
       dueDate: null,
       comments: [],
+      todos: [],
+      todoProgress: 0,
     });
     setEditingTask(null);
   };
@@ -278,6 +286,24 @@ const ProjectDetail = () => {
       ...taskForm,
       comments: currentComments.filter((_, i) => i !== index),
     });
+  };
+
+  const handleUpdateTodos = (updatedTodos: Todo[], updatedProgress?: number) => {
+    setTaskForm({
+      ...taskForm,
+      todos: updatedTodos,
+      todoProgress: updatedProgress,
+    });
+    // Update also the tasks array if editing
+    if (editingTask) {
+      setTasks(
+        tasks.map((t) =>
+          t._id === editingTask._id
+            ? { ...t, todos: updatedTodos, todoProgress: updatedProgress }
+            : t,
+        ),
+      );
+    }
   };
 
   const getFilteredTasks = () => {
@@ -609,12 +635,20 @@ const ProjectDetail = () => {
               )}
 
               {editingTask && (
-                <TaskComments
-                  comments={taskForm.comments || []}
-                  onAddComment={handleAddComment}
-                  onEditComment={handleEditComment}
-                  onDeleteComment={handleDeleteComment}
-                />
+                <>
+                  <TaskTodos
+                    taskId={editingTask._id}
+                    todos={taskForm.todos || []}
+                    todoProgress={taskForm.todoProgress}
+                    onUpdate={handleUpdateTodos}
+                  />
+                  <TaskComments
+                    comments={taskForm.comments || []}
+                    onAddComment={handleAddComment}
+                    onEditComment={handleEditComment}
+                    onDeleteComment={handleDeleteComment}
+                  />
+                </>
               )}
 
               <div className={styles.modalActions}>

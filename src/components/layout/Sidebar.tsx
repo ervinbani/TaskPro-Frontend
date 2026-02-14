@@ -5,6 +5,7 @@ import { faMoon, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../contexts/ThemeContext";
 import UserProfileModal from "../common/UserProfileModal";
+import NotificationBell from "../notifications/NotificationBell";
 import type { Project } from "../../types/project";
 import styles from "./Sidebar.module.css";
 
@@ -113,6 +114,7 @@ const Sidebar = ({
         </button>
 
         <div className={styles.footerActions}>
+          <NotificationBell />
           <button
             onClick={() => setShowProfileModal(true)}
             className={styles.profileBtn}

@@ -10,6 +10,18 @@ export interface TaskComment {
   createdAt: string;
 }
 
+export interface Todo {
+  _id: string;
+  text: string;
+  completed: boolean;
+  completedAt?: string;
+  completedBy?: {
+    _id: string;
+    username: string;
+  };
+  createdAt: string;
+}
+
 export interface Task {
   _id: string;
   title: string;
@@ -20,6 +32,8 @@ export interface Task {
   progress?: number; // 0-100
   dueDate?: string | null; // Data di scadenza opzionale (ISO format)
   comments?: TaskComment[]; // Array di commenti
+  todos?: Todo[]; // Array di todos
+  todoProgress?: number; // Percentuale completamento todos (0-100)
   project: string; // ID del progetto
   createdAt?: string;
   updatedAt?: string;
@@ -34,6 +48,8 @@ export interface CreateTaskDto {
   progress?: number;
   dueDate?: string | null;
   comments?: TaskComment[];
+  todos?: Todo[];
+  todoProgress?: number;
 }
 
 export interface UpdateTaskDto {
@@ -45,4 +61,6 @@ export interface UpdateTaskDto {
   dueDate?: string | null;
   comments?: TaskComment[];
   progress?: number;
+  todos?: Todo[];
+  todoProgress?: number;
 }
