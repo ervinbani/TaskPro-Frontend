@@ -69,7 +69,10 @@ const TaskTodos = ({
       );
 
       // Popola i dettagli dell'utente assegnato se presente
-      if (newTodoAssignedTo && (!newTodo.assignedTo || typeof newTodo.assignedTo === "string")) {
+      if (
+        newTodoAssignedTo &&
+        (!newTodo.assignedTo || typeof newTodo.assignedTo === "string")
+      ) {
         const assignedUser = availableAssignees.find(
           (user) => user._id === newTodoAssignedTo,
         );
