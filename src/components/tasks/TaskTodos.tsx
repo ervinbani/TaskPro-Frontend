@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
 import type { Todo } from "../../types/task";
+import UserAvatar from "../common/UserAvatar";
 import * as taskService from "../../services/taskService";
 import styles from "./TaskTodos.module.css";
 
@@ -11,6 +12,16 @@ interface TaskTodosProps {
   todos: Todo[];
   todoProgress?: number;
   onUpdate: (updatedTodos: Todo[], updatedProgress?: number) => void;
+  taskAssignedUsers?: Array<{
+    _id: string;
+    username: string;
+    email: string;
+  }>;
+  projectMembers?: Array<{
+    _id: string;
+    username: string;
+    email: string;
+  }>;
 }
 
 const TaskTodos = ({
@@ -18,10 +29,25 @@ const TaskTodos = ({
   todos,
   todoProgress,
   onUpdate,
+  taskAssignedUsers = [],
+  projectMembers = [],
 }: TaskTodosProps) => {
   const [newTodoText, setNewTodoText] = useState("");
+  const [newTodoAssignedTo, setNewTodoAssignedTo] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [processingTodoId, setProcessingTodoId] = useState<string | null>(null);
+
+  // Determina chi può essere assegnato al todo
+  const getAvailableAssignees = () => {
+    if (taskAssignedUsers.length > 0) {
+      // Task è assegnato: solo quegli utenti
+      return taskAssignedUsers;
+    }
+    // Task non assegnato: tutti i membri del progetto
+    return projectMembers;
+  };
+
+  const availableAssignees = getAvailableAssignees();
 
   const handleAddTodo = async () => {
     if (!newTodoText.trim()) {
@@ -36,11 +62,34 @@ const TaskTodos = ({
 
     try {
       setLoading(true);
-      const newTodo = await taskService.addTodo(taskId, newTodoText.trim());
+      let newTodo = await taskService.addTodo(
+        taskId,
+        newTodoText.trim(),
+        newTodoAssignedTo || undefined,
+      );
+
+      // Popola i dettagli dell'utente assegnato se presente
+      if (newTodoAssignedTo && (!newTodo.assignedTo || typeof newTodo.assignedTo === "string")) {
+        const assignedUser = availableAssignees.find(
+          (user) => user._id === newTodoAssignedTo,
+        );
+        if (assignedUser) {
+          newTodo = {
+            ...newTodo,
+            assignedTo: {
+              _id: assignedUser._id,
+              username: assignedUser.username,
+              email: assignedUser.email,
+            },
+          };
+        }
+      }
+
       const updatedTodos = [...todos, newTodo];
       const progress = calculateProgress(updatedTodos);
       onUpdate(updatedTodos, progress);
       setNewTodoText("");
+      setNewTodoAssignedTo("");
       toast.success("Todo added successfully");
     } catch (error) {
       console.error("Error adding todo:", error);
@@ -60,9 +109,22 @@ const TaskTodos = ({
   const handleToggleTodo = async (todo: Todo) => {
     try {
       setProcessingTodoId(todo._id);
-      const updatedTodo = await taskService.updateTodo(taskId, todo._id, {
+      let updatedTodo = await taskService.updateTodo(taskId, todo._id, {
         completed: !todo.completed,
       });
+
+      // Preserva i dati assignedTo se il backend non li restituisce popolati
+      if (
+        todo.assignedTo &&
+        typeof todo.assignedTo === "object" &&
+        (!updatedTodo.assignedTo || typeof updatedTodo.assignedTo === "string")
+      ) {
+        updatedTodo = {
+          ...updatedTodo,
+          assignedTo: todo.assignedTo,
+        };
+      }
+
       const updatedTodos = todos.map((t) =>
         t._id === todo._id ? updatedTodo : t,
       );
@@ -134,16 +196,33 @@ const TaskTodos = ({
 
       {/* Add New Todo Form */}
       <div className={styles.addTodoForm}>
-        <input
-          type="text"
-          value={newTodoText}
-          onChange={(e) => setNewTodoText(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Add a new todo..."
-          maxLength={200}
-          disabled={loading}
-          className={styles.todoInput}
-        />
+        <div className={styles.todoInputWrapper}>
+          <input
+            type="text"
+            value={newTodoText}
+            onChange={(e) => setNewTodoText(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Add a new todo..."
+            maxLength={200}
+            disabled={loading}
+            className={styles.todoInput}
+          />
+          {availableAssignees.length > 0 && (
+            <select
+              value={newTodoAssignedTo}
+              onChange={(e) => setNewTodoAssignedTo(e.target.value)}
+              disabled={loading}
+              className={styles.todoAssignSelect}
+            >
+              <option value="">Unassigned</option>
+              {availableAssignees.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {user.username}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
         <button
           type="button"
           onClick={handleAddTodo}
@@ -154,6 +233,16 @@ const TaskTodos = ({
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
+      {taskAssignedUsers.length > 0 && availableAssignees.length > 0 && (
+        <p className={styles.assignInfo}>
+          Todos can only be assigned to users assigned to this task
+        </p>
+      )}
+      {taskAssignedUsers.length === 0 && availableAssignees.length > 0 && (
+        <p className={styles.assignInfo}>
+          Task is unassigned - todos can be assigned to any project member
+        </p>
+      )}
 
       {/* Todos List */}
       <div className={styles.todosList}>
@@ -181,6 +270,18 @@ const TaskTodos = ({
 
               <div className={styles.todoContent}>
                 <span className={styles.todoText}>{todo.text}</span>
+                {todo.assignedTo && todo.assignedTo.username && (
+                  <div className={styles.todoAssigned}>
+                    <UserAvatar
+                      username={todo.assignedTo.username}
+                      email={todo.assignedTo.email}
+                      size="small"
+                    />
+                    <span className={styles.assignedText}>
+                      {todo.assignedTo.username}
+                    </span>
+                  </div>
+                )}
                 {todo.completed && todo.completedBy && (
                   <span className={styles.todoMeta}>
                     Completed by {todo.completedBy.username}

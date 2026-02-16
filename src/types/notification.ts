@@ -6,6 +6,7 @@ export interface Notification {
     | "TASK_CREATED"
     | "TASK_UPDATED"
     | "TASK_ASSIGNED"
+    | "TODO_ASSIGNED"
     | "PROJECT_UPDATED";
   isRead: boolean;
   createdAt: string;

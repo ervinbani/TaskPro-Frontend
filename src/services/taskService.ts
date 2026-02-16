@@ -38,9 +38,14 @@ export const deleteTask = async (taskId: string): Promise<void> => {
 // ======= TODO OPERATIONS =======
 
 // Add todo to task
-export const addTodo = async (taskId: string, text: string): Promise<Todo> => {
+export const addTodo = async (
+  taskId: string,
+  text: string,
+  assignedTo?: string,
+): Promise<Todo> => {
   const response = await api.post<Todo>(`/api/tasks/${taskId}/todos`, {
     text,
+    ...(assignedTo && { assignedTo }),
   });
   return response.data;
 };
@@ -49,7 +54,7 @@ export const addTodo = async (taskId: string, text: string): Promise<Todo> => {
 export const updateTodo = async (
   taskId: string,
   todoId: string,
-  updates: { text?: string; completed?: boolean },
+  updates: { text?: string; completed?: boolean; assignedTo?: string | null },
 ): Promise<Todo> => {
   const response = await api.put<Todo>(
     `/api/tasks/${taskId}/todos/${todoId}`,

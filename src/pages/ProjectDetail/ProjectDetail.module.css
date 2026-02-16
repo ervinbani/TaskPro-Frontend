@@ -465,6 +465,46 @@
   border-color: #2563eb;
 }
 
+.fieldHelper {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin: 0.25rem 0 0.5rem;
+  font-style: italic;
+}
+
+.assignSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.assignBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.assignBtn:hover {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.assignBtnActive {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.assignBtnActive:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
 .dueDateHeader {
   display: flex;
   justify-content: space-between;

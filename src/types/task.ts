@@ -19,6 +19,13 @@ export interface Todo {
     _id: string;
     username: string;
   };
+  assignedTo?:
+    | string
+    | {
+        _id: string;
+        username: string;
+        email: string;
+      };
   createdAt: string;
 }
 
@@ -34,6 +41,11 @@ export interface Task {
   comments?: TaskComment[]; // Array di commenti
   todos?: Todo[]; // Array di todos
   todoProgress?: number; // Percentuale completamento todos (0-100)
+  assignedTo?: Array<{
+    _id: string;
+    username: string;
+    email: string;
+  }>; // Utenti assegnati al task
   project: string; // ID del progetto
   createdAt?: string;
   updatedAt?: string;
@@ -50,6 +62,7 @@ export interface CreateTaskDto {
   comments?: TaskComment[];
   todos?: Todo[];
   todoProgress?: number;
+  assignedTo?: string[]; // Array di user IDs
 }
 
 export interface UpdateTaskDto {
@@ -63,4 +76,5 @@ export interface UpdateTaskDto {
   progress?: number;
   todos?: Todo[];
   todoProgress?: number;
+  assignedTo?: string[]; // Array di user IDs
 }

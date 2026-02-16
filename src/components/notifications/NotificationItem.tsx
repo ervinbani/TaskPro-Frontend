@@ -6,6 +6,7 @@ import {
   faEdit,
   faProjectDiagram,
   faTrash,
+  faCheckSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNotifications } from "../../hooks/useNotifications";
 import type { Notification } from "../../types/notification";
@@ -30,6 +31,8 @@ const NotificationItem = ({ notification, onClose }: NotificationItemProps) => {
       case "TASK_UPDATED":
       case "TASK_ASSIGNED":
         return faEdit;
+      case "TODO_ASSIGNED":
+        return faCheckSquare;
       case "PROJECT_UPDATED":
         return faProjectDiagram;
       default:

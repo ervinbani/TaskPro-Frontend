@@ -1,4 +1,5 @@
 import type { Task, TaskPriority } from "../../types/task";
+import UserAvatarGroup from "../common/UserAvatarGroup";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
@@ -51,6 +52,17 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
               {tag}
             </span>
           ))}
+        </div>
+      )}
+
+      {task.assignedTo && task.assignedTo.length > 0 && (
+        <div className={styles.assignedSection}>
+          <span className={styles.assignedLabel}>Assigned to:</span>
+          <UserAvatarGroup
+            users={task.assignedTo}
+            maxVisible={3}
+            size="small"
+          />
         </div>
       )}
 

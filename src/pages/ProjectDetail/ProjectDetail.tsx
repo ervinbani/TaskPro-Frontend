@@ -52,6 +52,7 @@ const ProjectDetail = () => {
     comments: [],
     todos: [],
     todoProgress: 0,
+    assignedTo: [],
   });
 
   const loadProjectData = useCallback(async () => {
@@ -63,8 +64,54 @@ const ProjectDetail = () => {
         projectService.getProject(projectId),
         taskService.getProjectTasks(projectId),
       ]);
-      setProject(projectData);
-      setTasks(tasksData);
+
+      // Popola assignedTo nei todos se sono solo ID
+      if (tasksData.length > 0 && projectData) {
+        // Crea una mappa di tutti i membri del progetto
+        const membersMap = new Map();
+        if (typeof projectData.owner === "object") {
+          membersMap.set(projectData.owner._id, projectData.owner);
+        }
+        if (Array.isArray(projectData.collaborators)) {
+          projectData.collaborators.forEach((collab) => {
+            if (typeof collab === "object") {
+              membersMap.set(collab._id, collab);
+            }
+          });
+        }
+
+        // Popola assignedTo in tutti i todos
+        const populatedTasks = tasksData.map((task) => {
+          if (task.todos && task.todos.length > 0) {
+            const populatedTodos = task.todos.map((todo) => {
+              if (
+                todo.assignedTo &&
+                typeof todo.assignedTo === "string" &&
+                membersMap.has(todo.assignedTo)
+              ) {
+                const user = membersMap.get(todo.assignedTo);
+                return {
+                  ...todo,
+                  assignedTo: {
+                    _id: user._id,
+                    username: user.username,
+                    email: user.email,
+                  },
+                };
+              }
+              return todo;
+            });
+            return { ...task, todos: populatedTodos };
+          }
+          return task;
+        });
+
+        setProject(projectData);
+        setTasks(populatedTasks);
+      } else {
+        setProject(projectData);
+        setTasks(tasksData);
+      }
     } catch (error: unknown) {
       toast.error("Failed to load project data");
       console.error(error);
@@ -104,12 +151,51 @@ const ProjectDetail = () => {
       progress: 0,
       dueDate: null,
       comments: [],
+      assignedTo: [],
     });
     setShowModal(true);
   };
 
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
+
+    // Popola i dati assignedTo dei todos se sono solo ID
+    let populatedTodos = task.todos || [];
+    if (populatedTodos.length > 0 && project) {
+      // Crea una mappa di tutti i membri del progetto
+      const membersMap = new Map();
+      if (typeof project.owner === "object") {
+        membersMap.set(project.owner._id, project.owner);
+      }
+      if (Array.isArray(project.collaborators)) {
+        project.collaborators.forEach((collab) => {
+          if (typeof collab === "object") {
+            membersMap.set(collab._id, collab);
+          }
+        });
+      }
+
+      // Popola assignedTo se è solo un ID
+      populatedTodos = populatedTodos.map((todo) => {
+        if (
+          todo.assignedTo &&
+          typeof todo.assignedTo === "string" &&
+          membersMap.has(todo.assignedTo)
+        ) {
+          const user = membersMap.get(todo.assignedTo);
+          return {
+            ...todo,
+            assignedTo: {
+              _id: user._id,
+              username: user.username,
+              email: user.email,
+            },
+          };
+        }
+        return todo;
+      });
+    }
+
     setTaskForm({
       title: task.title,
       description: task.description || "",
@@ -119,8 +205,9 @@ const ProjectDetail = () => {
       progress: task.progress || 0,
       dueDate: task.dueDate || null,
       comments: task.comments || [],
-      todos: task.todos || [],
+      todos: populatedTodos,
       todoProgress: task.todoProgress || 0,
+      assignedTo: task.assignedTo?.map((u) => u._id) || [],
     });
     setShowModal(true);
   };
@@ -237,6 +324,7 @@ const ProjectDetail = () => {
       comments: [],
       todos: [],
       todoProgress: 0,
+      assignedTo: [],
     });
     setEditingTask(null);
   };
@@ -637,6 +725,71 @@ const ProjectDetail = () => {
                 </div>
               )}
 
+              {/* Assign Task To */}
+              <div className={styles.formGroup}>
+                <label>Assign Task To (Optional)</label>
+                <p className={styles.fieldHelper}>
+                  Leave empty to allow all members to work on this task
+                </p>
+                <div className={styles.assignSelector}>
+                  {(() => {
+                    const members = [];
+                    // Add owner
+                    if (typeof project.owner === "object") {
+                      members.push({
+                        _id: project.owner._id,
+                        username: project.owner.username,
+                        email: project.owner.email,
+                        label: `${project.owner.username} (Owner)`,
+                      });
+                    }
+                    // Add collaborators
+                    if (Array.isArray(project.collaborators)) {
+                      project.collaborators.forEach((collab) => {
+                        if (typeof collab === "object") {
+                          members.push({
+                            _id: collab._id,
+                            username: collab.username,
+                            email: collab.email,
+                            label: collab.username,
+                          });
+                        }
+                      });
+                    }
+                    return members.map((member) => (
+                      <button
+                        key={member._id}
+                        type="button"
+                        onClick={() => {
+                          const currentAssigned = taskForm.assignedTo || [];
+                          if (currentAssigned.includes(member._id)) {
+                            setTaskForm({
+                              ...taskForm,
+                              assignedTo: currentAssigned.filter(
+                                (id) => id !== member._id,
+                              ),
+                            });
+                          } else {
+                            setTaskForm({
+                              ...taskForm,
+                              assignedTo: [...currentAssigned, member._id],
+                            });
+                          }
+                        }}
+                        className={`${styles.assignBtn} ${
+                          taskForm.assignedTo?.includes(member._id)
+                            ? styles.assignBtnActive
+                            : ""
+                        }`}
+                        title={member.email}
+                      >
+                        {member.label}
+                      </button>
+                    ));
+                  })()}
+                </div>
+              </div>
+
               {editingTask && (
                 <>
                   <TaskTodos
@@ -644,6 +797,21 @@ const ProjectDetail = () => {
                     todos={taskForm.todos || []}
                     todoProgress={taskForm.todoProgress}
                     onUpdate={handleUpdateTodos}
+                    taskAssignedUsers={editingTask.assignedTo || []}
+                    projectMembers={(() => {
+                      const members = [];
+                      if (typeof project.owner === "object") {
+                        members.push(project.owner);
+                      }
+                      if (Array.isArray(project.collaborators)) {
+                        project.collaborators.forEach((collab) => {
+                          if (typeof collab === "object") {
+                            members.push(collab);
+                          }
+                        });
+                      }
+                      return members;
+                    })()}
                   />
                   <TaskComments
                     comments={taskForm.comments || []}
