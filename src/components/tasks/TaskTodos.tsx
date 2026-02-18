@@ -273,7 +273,7 @@ const TaskTodos = ({
 
               <div className={styles.todoContent}>
                 <span className={styles.todoText}>{todo.text}</span>
-                {todo.assignedTo && typeof todo.assignedTo === 'object' && (
+                {todo.assignedTo && typeof todo.assignedTo === "object" && (
                   <div className={styles.todoAssigned}>
                     <UserAvatar
                       username={todo.assignedTo.username}
