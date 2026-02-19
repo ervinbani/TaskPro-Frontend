@@ -36,6 +36,7 @@ const TaskTodos = ({
   const [newTodoAssignedTo, setNewTodoAssignedTo] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [processingTodoId, setProcessingTodoId] = useState<string | null>(null);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   // Determina chi può essere assegnato al todo
   const getAvailableAssignees = () => {
@@ -48,6 +49,12 @@ const TaskTodos = ({
   };
 
   const availableAssignees = getAvailableAssignees();
+
+  const handleCancelAdd = () => {
+    setNewTodoText("");
+    setNewTodoAssignedTo("");
+    setShowAddForm(false);
+  };
 
   const handleAddTodo = async () => {
     if (!newTodoText.trim()) {
@@ -93,6 +100,7 @@ const TaskTodos = ({
       onUpdate(updatedTodos, progress);
       setNewTodoText("");
       setNewTodoAssignedTo("");
+      setShowAddForm(false);
       toast.success("Todo added successfully");
     } catch (error) {
       console.error("Error adding todo:", error);
@@ -179,9 +187,21 @@ const TaskTodos = ({
     <div className={styles.todosContainer}>
       <div className={styles.todosHeader}>
         <h3>Todo List</h3>
-        <span className={styles.todosCount}>
-          {completedCount}/{totalCount}
-        </span>
+        <div className={styles.headerActions}>
+          <span className={styles.todosCount}>
+            {completedCount}/{totalCount}
+          </span>
+          {!showAddForm && (
+            <button
+              type="button"
+              onClick={() => setShowAddForm(true)}
+              className={styles.showAddFormBtn}
+              title="Aggiungi todo"
+            >
+              <FontAwesomeIcon icon={faPlus} /> Aggiungi
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Progress Bar */}
@@ -198,44 +218,58 @@ const TaskTodos = ({
       )}
 
       {/* Add New Todo Form */}
-      <div className={styles.addTodoForm}>
-        <div className={styles.todoInputWrapper}>
-          <input
-            type="text"
-            value={newTodoText}
-            onChange={(e) => setNewTodoText(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Add a new todo..."
-            maxLength={200}
-            disabled={loading}
-            className={styles.todoInput}
-          />
-          {availableAssignees.length > 0 && (
-            <select
-              value={newTodoAssignedTo}
-              onChange={(e) => setNewTodoAssignedTo(e.target.value)}
+      {showAddForm && (
+        <div className={styles.addTodoForm}>
+          <div className={styles.todoInputWrapper}>
+            <input
+              type="text"
+              value={newTodoText}
+              onChange={(e) => setNewTodoText(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Add a new todo..."
+              maxLength={200}
               disabled={loading}
-              className={styles.todoAssignSelect}
+              className={styles.todoInput}
+              autoFocus
+            />
+            {availableAssignees.length > 0 && (
+              <select
+                value={newTodoAssignedTo}
+                onChange={(e) => setNewTodoAssignedTo(e.target.value)}
+                disabled={loading}
+                className={styles.todoAssignSelect}
+              >
+                <option value="">Unassigned</option>
+                {availableAssignees.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.username}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+          <div className={styles.formActions}>
+            <button
+              type="button"
+              onClick={handleAddTodo}
+              disabled={loading || !newTodoText.trim()}
+              className={styles.saveTodoBtn}
+              title="Salva todo"
             >
-              <option value="">Unassigned</option>
-              {availableAssignees.map((user) => (
-                <option key={user._id} value={user._id}>
-                  {user.username}
-                </option>
-              ))}
-            </select>
-          )}
+              Salva
+            </button>
+            <button
+              type="button"
+              onClick={handleCancelAdd}
+              disabled={loading}
+              className={styles.cancelTodoBtn}
+              title="Annulla"
+            >
+              Annulla
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={handleAddTodo}
-          disabled={loading || !newTodoText.trim()}
-          className={styles.addTodoBtn}
-          title="Add todo"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-      </div>
+      )}
       {taskAssignedUsers.length > 0 && availableAssignees.length > 0 && (
         <p className={styles.assignInfo}>
           Todos can only be assigned to users assigned to this task

@@ -8,15 +8,58 @@
   border-top-color: #374151;
 }
 
+.commentsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
 .commentsTitle {
   font-size: 0.9rem;
   font-weight: 600;
   color: #374151;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 :root[data-theme="dark"] .commentsTitle {
   color: #d1d5db;
+}
+
+/* Show Add Form Button */
+.showAddFormBtn {
+  display: flex;
+  background-color: red;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: #4338ca;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.showAddFormBtn:hover {
+  background: #3730a3;
+  transform: scale(1.05);
+}
+
+.showAddFormBtn:active {
+  transform: scale(1);
+}
+
+:root[data-theme="dark"] .showAddFormBtn {
+  background: #6366f1;
+}
+
+:root[data-theme="dark"] .showAddFormBtn:hover {
+  background: #4f46e5;
 }
 
 .commentsList {
@@ -208,6 +251,16 @@
   flex-direction: column;
   gap: 0.75rem;
   margin-top: 1rem;
+  margin-right: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+:root[data-theme="dark"] .addCommentForm {
+  background: #1f2937;
+  border-color: #374151;
 }
 
 .commentInput {
@@ -234,6 +287,72 @@
 
 :root[data-theme="dark"] .commentInput:focus {
   border-color: #6366f1;
+}
+
+/* Form Actions */
+.formActions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.saveBtn,
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.saveBtn {
+  background: #10b981;
+  color: white;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cancelBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.cancelBtn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.cancelBtn:active,
+.saveBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+:root[data-theme="dark"] .saveBtn {
+  background: #059669;
+}
+
+:root[data-theme="dark"] .saveBtn:hover:not(:disabled) {
+  background: #047857;
+}
+
+:root[data-theme="dark"] .cancelBtn {
+  background: #dc2626;
+}
+
+:root[data-theme="dark"] .cancelBtn:hover {
+  background: #b91c1c;
 }
 
 .addBtn {

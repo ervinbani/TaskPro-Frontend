@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import type { TaskComment } from "../../types/task";
 import styles from "./TaskComments.module.css";
 
@@ -18,12 +20,19 @@ const TaskComments = ({
   const [newComment, setNewComment] = useState("");
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editText, setEditText] = useState("");
+  const [showAddForm, setShowAddForm] = useState(false);
 
   const handleAddComment = () => {
     if (newComment.trim()) {
       onAddComment(newComment.trim());
       setNewComment("");
+      setShowAddForm(false);
     }
+  };
+
+  const handleCancelAdd = () => {
+    setNewComment("");
+    setShowAddForm(false);
   };
 
   const handleStartEdit = (index: number, currentComment: TaskComment) => {
@@ -46,9 +55,21 @@ const TaskComments = ({
 
   return (
     <div className={styles.commentsSection}>
-      <h4 className={styles.commentsTitle}>
-        Comments ({comments?.length || 0})
-      </h4>
+      <div className={styles.commentsHeader}>
+        <h4 className={styles.commentsTitle}>
+          Comments ({comments?.length || 0})
+        </h4>
+        {!showAddForm && (
+          <button
+            type="button"
+            onClick={() => setShowAddForm(true)}
+            className={styles.showAddFormBtn}
+            title="Aggiungi commento"
+          >
+            <FontAwesomeIcon icon={faPlus} /> Aggiungi
+          </button>
+        )}
+      </div>
 
       {/* Comments list */}
       <div className={styles.commentsList}>
@@ -138,18 +159,30 @@ const TaskComments = ({
       </div>
 
       {/* Add new comment */}
-      <div className={styles.addCommentForm}>
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-          className={styles.commentInput}
-          rows={3}
-        />
-        <button onClick={handleAddComment} className={styles.addBtn}>
-          Add Comment
-        </button>
-      </div>
+      {showAddForm && (
+        <div className={styles.addCommentForm}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+            className={styles.commentInput}
+            rows={3}
+            autoFocus
+          />
+          <div className={styles.formActions}>
+            <button
+              onClick={handleAddComment}
+              className={styles.saveBtn}
+              disabled={!newComment.trim()}
+            >
+              Salva
+            </button>
+            <button onClick={handleCancelAdd} className={styles.cancelBtn}>
+              Annulla
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

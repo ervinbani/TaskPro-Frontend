@@ -655,39 +655,39 @@ const ProjectDetail = () => {
                     <option value="Low">Low</option>
                   </select>
                 </div>
-              </div>
 
-              <div className={styles.formGroup}>
-                <div className={styles.dueDateHeader}>
-                  <label htmlFor="dueDate">Due Date</label>
-                  {taskForm.dueDate && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setTaskForm({ ...taskForm, dueDate: null })
-                      }
-                      className={styles.removeDateBtn}
-                      title="Remove due date"
-                    >
-                      Remove
-                    </button>
-                  )}
+                <div className={styles.formGroup}>
+                  <div className={styles.dueDateHeader}>
+                    <label htmlFor="dueDate">Due Date</label>
+                    {taskForm.dueDate && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setTaskForm({ ...taskForm, dueDate: null })
+                        }
+                        className={styles.removeDateBtn}
+                        title="Remove due date"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  <input
+                    type="date"
+                    id="dueDate"
+                    value={
+                      taskForm.dueDate
+                        ? new Date(taskForm.dueDate).toISOString().split("T")[0]
+                        : ""
+                    }
+                    onChange={(e) =>
+                      setTaskForm({
+                        ...taskForm,
+                        dueDate: e.target.value || null,
+                      })
+                    }
+                  />
                 </div>
-                <input
-                  type="date"
-                  id="dueDate"
-                  value={
-                    taskForm.dueDate
-                      ? new Date(taskForm.dueDate).toISOString().split("T")[0]
-                      : ""
-                  }
-                  onChange={(e) =>
-                    setTaskForm({
-                      ...taskForm,
-                      dueDate: e.target.value || null,
-                    })
-                  }
-                />
               </div>
 
               {project.tags && project.tags.length > 0 && (

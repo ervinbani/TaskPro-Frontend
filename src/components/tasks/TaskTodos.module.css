@@ -26,6 +26,12 @@
   color: #d1d5db;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .todosCount {
   font-size: 0.875rem;
   font-weight: 600;
@@ -77,13 +83,6 @@
 
 :root[data-theme="dark"] .progressText {
   color: #34d399;
-}
-
-/* Add Todo Form */
-.addTodoForm {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .todoInputWrapper {
@@ -201,6 +200,123 @@
 
 :root[data-theme="dark"] .addTodoBtn:hover:not(:disabled) {
   background: #1d4ed8;
+}
+
+/* Show Add Form Button */
+.showAddFormBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.showAddFormBtn:hover {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+.showAddFormBtn:active {
+  transform: scale(1);
+}
+
+:root[data-theme="dark"] .showAddFormBtn {
+  background: #2563eb;
+}
+
+:root[data-theme="dark"] .showAddFormBtn:hover {
+  background: #1d4ed8;
+}
+
+/* Form Actions */
+.formActions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.saveTodoBtn,
+.cancelTodoBtn {
+  padding: 0.625rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.saveTodoBtn {
+  background: #10b981;
+  color: white;
+}
+
+.saveTodoBtn:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.saveTodoBtn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cancelTodoBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.cancelTodoBtn:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.cancelTodoBtn:active:not(:disabled),
+.saveTodoBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+:root[data-theme="dark"] .saveTodoBtn {
+  background: #059669;
+}
+
+:root[data-theme="dark"] .saveTodoBtn:hover:not(:disabled) {
+  background: #047857;
+}
+
+:root[data-theme="dark"] .cancelTodoBtn {
+  background: #dc2626;
+}
+
+:root[data-theme="dark"] .cancelTodoBtn:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+/* Add Todo Form - Updated Style */
+.addTodoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+:root[data-theme="dark"] .addTodoForm {
+  background: #1f2937;
+  border-color: #374151;
 }
 
 /* Todos List */
