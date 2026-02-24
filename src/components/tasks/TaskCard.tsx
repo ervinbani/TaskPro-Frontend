@@ -1,5 +1,7 @@
 import type { Task, TaskPriority } from "../../types/task";
 import UserAvatarGroup from "../common/UserAvatarGroup";
+import { getTagColor } from "../../utils/tagColors";
+import { useTheme } from "../../contexts/ThemeContext";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
@@ -23,6 +25,9 @@ const getPriorityClass = (priority?: TaskPriority) => {
 };
 
 const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
   return (
     <div className={styles.card} onClick={() => onEdit?.(task)}>
       <div className={styles.cardHeader}>
@@ -47,11 +52,18 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
 
       {task.tags && task.tags.length > 0 && (
         <div className={styles.tags}>
-          {task.tags.map((tag, index) => (
-            <span key={index} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
+          {task.tags.map((tag, index) => {
+            const tagColors = getTagColor(tag);
+            const tagStyle = {
+              backgroundColor: isDarkMode ? tagColors.bgDark : tagColors.bg,
+              color: isDarkMode ? tagColors.colorDark : tagColors.color,
+            };
+            return (
+              <span key={index} className={styles.tag} style={tagStyle}>
+                {tag}
+              </span>
+            );
+          })}
         </div>
       )}
 

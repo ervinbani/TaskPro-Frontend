@@ -25,12 +25,16 @@ import ProjectCollaborators from "../../components/projects/ProjectCollaborators
 import TaskComments from "../../components/tasks/TaskComments";
 import TaskTodos from "../../components/tasks/TaskTodos";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../contexts/ThemeContext";
+import { getTagColor } from "../../utils/tagColors";
 import styles from "./ProjectDetail.module.css";
 
 const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
   const [project, setProject] = useState<Project | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -525,17 +529,34 @@ const ProjectDetail = () => {
         {project.tags && project.tags.length > 0 && (
           <>
             <div className={styles.filterDivider}></div>
-            {project.tags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setFilterCategory(tag)}
-                className={`${styles.filterBtn} ${styles.tagFilter} ${
-                  filterCategory === tag ? styles.activeTagFilter : ""
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
+            {project.tags.map((tag) => {
+              const isActive = filterCategory === tag;
+              const tagColors = getTagColor(tag);
+              const tagStyle = isActive
+                ? {
+                    backgroundColor: isDarkMode
+                      ? tagColors.bgDark
+                      : tagColors.bg,
+                    color: isDarkMode
+                      ? tagColors.colorDark
+                      : tagColors.color,
+                    borderColor: "transparent",
+                  }
+                : {};
+
+              return (
+                <button
+                  key={tag}
+                  onClick={() => setFilterCategory(tag)}
+                  className={`${styles.filterBtn} ${styles.tagFilter} ${
+                    isActive ? styles.activeTagFilter : ""
+                  }`}
+                  style={tagStyle}
+                >
+                  {tag}
+                </button>
+              );
+            })}
           </>
         )}{" "}
       </div>
@@ -694,33 +715,50 @@ const ProjectDetail = () => {
                 <div className={styles.formGroup}>
                   <label>Tags</label>
                   <div className={styles.tagsSelector}>
-                    {project.tags.map((tag) => (
-                      <button
-                        key={tag}
-                        type="button"
-                        onClick={() => {
-                          const currentTags = taskForm.tags || [];
-                          if (currentTags.includes(tag)) {
-                            setTaskForm({
-                              ...taskForm,
-                              tags: currentTags.filter((t) => t !== tag),
-                            });
-                          } else {
-                            setTaskForm({
-                              ...taskForm,
-                              tags: [...currentTags, tag],
-                            });
+                    {project.tags.map((tag) => {
+                      const isActive = taskForm.tags?.includes(tag);
+                      const tagColors = getTagColor(tag);
+                      const tagStyle = isActive
+                        ? {
+                            backgroundColor: isDarkMode
+                              ? tagColors.bgDark
+                              : tagColors.bg,
+                            color: isDarkMode
+                              ? tagColors.colorDark
+                              : tagColors.color,
                           }
-                        }}
-                        className={`${styles.tagSelectorBtn} ${
-                          taskForm.tags?.includes(tag)
-                            ? styles.tagSelectorBtnActive
-                            : ""
-                        }`}
-                      >
-                        {tag}
-                      </button>
-                    ))}
+                        : {};
+
+                      return (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => {
+                            const currentTags = taskForm.tags || [];
+                            if (currentTags.includes(tag)) {
+                              setTaskForm({
+                                ...taskForm,
+                                tags: currentTags.filter((t) => t !== tag),
+                              });
+                            } else {
+                              setTaskForm({
+                                ...taskForm,
+                                tags: [...currentTags, tag],
+                              });
+                            }
+                          }}
+                          className={`${styles.tagSelectorBtn} ${
+                            isActive ? styles.tagSelectorBtnActive : ""
+                          }`}
+                          style={tagStyle}
+                        >
+                          {tag}
+                          {isActive && (
+                            <span className={styles.removeTagIcon}>×</span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
