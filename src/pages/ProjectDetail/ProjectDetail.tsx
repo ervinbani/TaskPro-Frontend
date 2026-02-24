@@ -537,9 +537,7 @@ const ProjectDetail = () => {
                     backgroundColor: isDarkMode
                       ? tagColors.bgDark
                       : tagColors.bg,
-                    color: isDarkMode
-                      ? tagColors.colorDark
-                      : tagColors.color,
+                    color: isDarkMode ? tagColors.colorDark : tagColors.color,
                     borderColor: "transparent",
                   }
                 : {};
